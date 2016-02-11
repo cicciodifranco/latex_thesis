@@ -57,7 +57,7 @@ Feature             & MongoDb                                                   
 Hosting             & \begin{tabular}[c]{@{}l@{}}Bare metal o \\ servizi di terze parti\end{tabular}                                            & Amazon                                                                                                                      \\ \hline
 Data model          & Modello a documetni                                                                                                       & \begin{tabular}[c]{@{}l@{}}Modello chiave-valore\\ Modello a documenti\end{tabular}                                         \\ \hline
 Licenza             & OpenSource                                                                                                                & Propietario                                                                                                                 \\ \hline
-Chiavi/Indici       & \begin{tabular}[c]{@{}l@{}}Primary key,\\ hashed index,\\ geospatial index,\\ geohystack index,\\ text index\end{tabular} & \begin{tabular}[c]{@{}l@{}}Hash key,\\ Hash and range, \\ 5 global secondary index, \\ 5 local secondary index\end{tabular} \\ \hline
+Chiavi/Indici       & \begin{tabular}[c]{@{}l@{}}Primary key,\\ Hashed index,\\ Geospatial index,\\ Geohystack index,\\ Text index\end{tabular} & \begin{tabular}[c]{@{}l@{}}Hash key,\\ Hash and range, \\ 5 global secondary index, \\ 5 local secondary index\end{tabular} \\ \hline
 Modalità di accesso & Protocollo propietario                                                                                                    & RestAPI (HTTP)                                                                                                              \\ \hline
 Trigger             & Si                                                                                                                        & Lambda AWS                                                                                                                  \\ \hline
 Mapreduce           & Si                                                                                                                        & Si (EMR)                                                                                                                    \\ \hline
@@ -89,7 +89,7 @@ Tale architettura, definita come delle linee guida dal W3C, ha portato a quello 
 	\item Uniform interface: Le interfacce di comunicazione dovrebbero appartenere tutte alla stessa famiglia (Es. HTTP).
 \end{itemize}
 
-Attualmente esistono molti i framework che permettono di implementare l'architettura REST e le più note sono:
+Attualmente esistono molti framework che permettono di implementare l'architettura REST e i più noti sono:
 \begin{itemize}
 	\item NodeJs (Javascript)
 	\item Laravel (PHP)
@@ -99,7 +99,7 @@ In questo elaborato verrano prese in esame solo NodeJs e Laravel.
 
 
 \subsubsection{NodeJS}
-Anche se javascript è nato come un linguaggio che doveva essere eseguito solo all'interno di un browser con lo sviluppo della versione 8 dell'interprete javascript di Chrome, noto browser di Google, le performance sono notevolmente migliorate al punto che sono nati framework come NodeJs. NodeJs è un ``event-driven" framework che grazie alla natura asincrona di javascript riesce ad implementare in maniera soddisfacente il modello ``non-blocking I/O". Pensato per costruire applicazioni scalabili riesce a gestire numerose richeste simultaneamente e corredato di ``packet manager" gode della più grande libreria di moduli (relativi al framework) open-source del web.
+Anche se javascript è nato come un linguaggio che doveva essere eseguito solo all'interno di un browser con lo sviluppo della versione 8 dell'interprete javascript di Chrome, noto browser di Google, le performance sono notevolmente migliorate al punto che sono nati framework server-side come NodeJs. NodeJs è un ``event-driven" framework che grazie alla natura asincrona di javascript riesce ad implementare in maniera soddisfacente il modello ``non-blocking I/O". Pensato per costruire applicazioni scalabili riesce a gestire numerose richeste simultaneamente e corredato di ``packet manager" gode della più grande libreria di moduli (relativi al framework) open-source del web.
 
 \subsubsection{Laravel PHP}
 Laravel è un framework PHP object oriented che si basa sull'architettura ``Model View Controller" permette di ottenere un ottima organizzazione sia logica che strutturale. I due concetti fondamentali di questo framework sono:
