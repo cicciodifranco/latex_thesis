@@ -1,0 +1,84 @@
+\documentclass[a4paper,11pt]{report}
+%\usepackage[latin1]{inputenc}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[italian]{babel}
+\usepackage[utf8x]{inputenc}
+
+
+\title{Sistema cloud based real-time \\per la gestione di eventi geolocalizzati.}
+\author{Di Franco Francesco}
+\date{09-03-2016}
+
+
+\begin{document}
+\include{frontespizio}
+
+
+
+
+
+\chapter*{Indice}
+
+\addcontentsline{toc}{chapter}{Indice}
+\chaptermark{Indice}
+
+\large
+\begin{enumerate}[label*=\arabic*.]
+\item Introduzione
+\item Obiettivi
+\begin{enumerate}[label*=\arabic*.]
+	\item Problematiche affrontate
+	\item Obiettivi raggiunti
+\end{enumerate}
+\item Requisiti
+\begin{enumerate}[label*=\arabic*.]
+	\item Classificazione eventi
+	\item Scalabilit\`a delle risorse
+	\item Ottimizzazione di I/O sul DB
+	\item Notifica utenti
+\end{enumerate}
+
+\item Tecnologie
+\begin{enumerate}[label*=\arabic*.]
+	\item Analisi comparativa
+	\item Teconologie selezionate
+\end{enumerate}
+\item Progettazione del software
+\begin{enumerate}[label*=\arabic*.]
+	\item Database (DynamoDb AWS)
+	\item NodeJs (Google event-driven javascript framework)
+	\item Redis (All in-memory key-value DB) e politiche di gestione cache
+	\item Lambda (Sistema di esecuzione di codice event-driven su AWS)
+	\item Socket.io (Web socket)
+\end{enumerate}
+
+\item Architettura
+\begin{enumerate}[label*=\arabic*.]
+	\item Architettura 1 (NodeJs, Redis, Socket.io)
+	\item Architettura 2 (AWS API Gateway, AWS IoT, AWS Lambda)
+	\item Architetture a confronto
+\end{enumerate}
+
+\item Workflow, testing e tecnologie di supporto
+\item Conclusione
+\item Sviluppi futuri
+\end{enumerate}
+%chapter
+\include{cap1-intro}
+\include{cap2}
+\include{cap3}
+\include{cap4}
+\include{cap5}
+\include{cap6}
+\include{cap7}
+\include{cap8}
+\include{cap9}
+\end{document}
+
+
+
+
+

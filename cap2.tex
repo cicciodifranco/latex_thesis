@@ -1,0 +1,58 @@
+\chapter{Obiettivi}
+In questo elaborato verranno descritte le principali tecnologie usate e le valutazioni tecniche che hanno portato alle scelta delle stesse. Alcune scelte come il sevice provider o la specifica tecnologia di Database Managment System (DBMS) sono state influenzate da fattori interni all'azienda motivati non solo da fattori tecnologici ma anche da particolari partnership e/o aggevolazioni di natura economica.
+
+
+\section{Problematiche affrontate}
+In questo elaborato verranno descritte le principali tecnologie usate e le valutazioni tecniche che hanno portato alle scelta delle stesse. La crezione di un sistema real-time basato su tecnologie cloud per la gestione di eventi geolocalozzati necessita di diverse valutazione e in particolare sono stati attenzionati i seguenti punti:
+\begin{itemize}
+\item Scalabilità delle risorse
+\item Latenza tra il verificarsi dell'evento e la notifica degli utenti
+\item Sicurezza
+\end{itemize}
+
+\section*{Scalabilità delle risorse}
+L'avanzare delle tecnologie in ambito informatico e delle telecomunicazioni ha apportato diversi cambiamenti nell'ambiente dei sistemi distribuiti e in particolare alla nascita di quello che oggi chiamiamo Cloud.
+Per cloud oggi si intende la modalità di strutturazione, orchestrazione ed erogazione on-demand di risorse informatiche tramite internet come storage, computing o hardware configurabile. Tali servizi sono completamente ospitati e configurati da provider che su richiesta, tramite procedure automatizzate, forniscono tali risorse in maniera rapida all'utente che le richiede.
+I servizi cloud sono divisi in tre categorie fondamentali:
+\begin{itemize}
+\item SaaS (Software as a Service) - Servizi che consentono l'utilizzo di software installati su macchine remote
+\item DaaS (Data as a Service) - Servizi di storage che consentono la memorizzazione persistente di dati su macchine remote
+\item HaaS (Hardware as a Service) - Servizi che permettono l'elaborazione di dati in modo distribuito
+\end{itemize}
+I vantaggi che derivano dall'utilizzo di tali servizi sono la semplicità e la trasparenza con cui le risorse vengono erogate e/o aggiunte a sistemi già esistenti. Oggi la capacità di un sistema di adeguarsi al carico viene definità scalabilità cioè aumentare o diminuire le risorse in funzione delle necessità.Tale proprietà viene considerata un parametro di qualità determinante in numerosi ecosistemi hardware-software. La distribuzione del carico e la massimizzazione delle prestazioni è un fattore determinante per sistemi software destinati all'utilizzo su vasta scala.
+
+L'architettura proposta fa uso per lo più di servizi SaaS altamente scalabili e il provider scelto è Amazon le cui tecnologie, denominate Amazon Web Services, sono tra le più utilizzate in ambito enterprise.
+
+
+\section*{Latenza tra il verificarsi dell'evento e la notifca degli utenti}
+Uno degli aspetti fondamentali per migliorare l'esperienza dell'utente è il fattore real-time cioè riuscir a visualizzare in tempo reale lo stato dello stallo di parcheggio interessato e nel contempo rimanere informato se lo stesso cambia di stato. La problematica più rilavante mentre si sta percorrendo un tragitto verso lo stallo interessato è appunto occupazione dello stallo da parte di un'altro automobilista. La notifica del cambio di stato in real-time è un aspetto molto curato che permette alla logica interna dell'applicazione per smartphone di cercare lo stallo libero più vicino a quello interessato. Per contattare l'utente  in caso di un eventuale aggiornamento verrà usata la tecnologia ``web-socket'' che offre un canale di comunicazione full-duplex tra client e server rendendo cosi molto più semplici le comunicazioni dal server verso il client. 
+In tal modo si riesce a diminuire l' I/O riducendo le richieste (API calls) da parte del client e si fa in modo che il client sia contattato solo quando si verifichi un evento. 
+
+\section*{Sicurezza}
+Un aspetto che non può essere trascurato è quello della sicurezza e nello specifico le modalità di autenticazione e comunicazione.
+
+
+Prima di poter cominciare una qualsiasi comunicazione ogni entità dovra essere autenticata e nello specifico le entità che dovranno comunicare e di conseguenza essere autenticate sono due:
+
+\begin{itemize}
+	\item Utenti
+	\item Telecamere
+\end{itemize}
+
+\subsection*{Autenticazione} 
+Formalmente per autenticazione si intende quel processo, durante una comunicazione, tramite il quale un entità verifica che l'altra parte sia realmente chi dichiara di essere.
+Le due modalità di autenticazione sono profondamente diverse a causa della diversa natura delle entità. 
+
+Un utente per usufruire del servizio dovrà registrarsi e di conseguneza cedere alcune sue informazioni personali per essere autenticato. In ausilio a questa procedura verrà utilizzato un sevizio AWS denominato ``Cognito'' che permette, dopo aver effettuato il login su un qualsiasi identity provider (Facebook, Google, Parksmart stessa), di verificare l'dentità dell'utente e mantenere la consistenza di un dataset personale utile alla sincronizzazione di più dispositivi. Cognito usa un maccanismo che verifica il token fornito dal dispositivo utente con l'identity provider e, dopo un eventuale conferma, inizializza l'identità e la registra in una pool alla quale fanno riferimento delle Access Control List (ACL) che specificano le capabilities della pool. In questo modo si ha la possibilità di gestire diversi gruppi di utenti assegnando o rimuovendo dinamicamente risorse specifiche.
+
+L'autenticazione delle telecamere invece usa un meccanismo basato sulla certificazione digitale ``X.509'' che permette segrettezza e autenticazione, tali certificati sono denominati ``self signed'' poichè rilasciati dall'azienda stessa ed hanno validità solo all'interno dell'ecosistema Parksmart. In tal modo ogni entità che vuole inviare un aggiornamento dovrà essere fornita di un certificato valido per completare l'handshake iniziale. Grazie a questo meccanismo si garantisce segretezza nella comunicazione grazie alla crittografia asimmetrica data dallo standard X.509 e si riesce ad autenticare l'entità tramite la verifica del certificato.
+
+\subsection*{Comunicazione}
+Dopo che il processo di autenticazione è andato a buon fine l'utente potrà richiedere i dati relativi alla zona in prossimità della sua posizione. Il protocollo usato per questo tipo di cominicazioni sarà l' ``HTTPS'' (HTTP + TLS) che garantisce segretezza e integrità.
+
+Per la comunicazione con le telecamere varrà usato un protocollo molto snello in termini di banda, denominato ``MQTT'' usa un meccanismo di publish/subscribe e trova molte applicazioni nell ``Internet of Things" (IoT).
+
+\section{Obiettivi raggiunti}
+Con lo sviluppo di questo progetto sono stati creati due prototipi applicativi completi per la gestione real-time dell'occupazione di dive
+
+

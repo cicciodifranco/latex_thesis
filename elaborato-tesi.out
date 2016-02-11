@@ -1,0 +1,28 @@
+\BOOKMARK [0][-]{chapter*.1}{Indice}{}% 1
+\BOOKMARK [0][-]{chapter.1}{Introduzione}{}% 2
+\BOOKMARK [0][-]{chapter.2}{Obiettivi}{}% 3
+\BOOKMARK [1][-]{section.2.1}{Problematiche affrontate}{chapter.2}% 4
+\BOOKMARK [1][-]{section.2.2}{Obiettivi raggiunti}{chapter.2}% 5
+\BOOKMARK [0][-]{chapter.3}{Rquisiti}{}% 6
+\BOOKMARK [1][-]{section.3.1}{Classificazione eventi}{chapter.3}% 7
+\BOOKMARK [1][-]{section.3.2}{Scalabilit\340 delle risorse}{chapter.3}% 8
+\BOOKMARK [1][-]{section.3.3}{Ottimizzazione dell' I/O sul DB}{chapter.3}% 9
+\BOOKMARK [2][-]{subsection.3.3.1}{Politiche di gestione della cache}{section.3.3}% 10
+\BOOKMARK [1][-]{section.3.4}{Notifica utenti}{chapter.3}% 11
+\BOOKMARK [0][-]{chapter.4}{Tecnologie}{}% 12
+\BOOKMARK [1][-]{section.4.1}{Analisi comparativa}{chapter.4}% 13
+\BOOKMARK [2][-]{subsection.4.1.1}{Basi di dati}{section.4.1}% 14
+\BOOKMARK [2][-]{subsection.4.1.2}{Web services e server side framework}{section.4.1}% 15
+\BOOKMARK [1][-]{section.4.2}{Tecnologie selezionate}{chapter.4}% 16
+\BOOKMARK [0][-]{chapter.5}{Progettazione software}{}% 17
+\BOOKMARK [1][-]{section.5.1}{Database \(DynamoDb AWS\)}{chapter.5}% 18
+\BOOKMARK [1][-]{section.5.2}{NodeJs}{chapter.5}% 19
+\BOOKMARK [1][-]{section.5.3}{Redis}{chapter.5}% 20
+\BOOKMARK [1][-]{section.5.4}{Lambda AWS}{chapter.5}% 21
+\BOOKMARK [0][-]{chapter.6}{Architettura}{}% 22
+\BOOKMARK [1][-]{section.6.1}{Architettura 1 \(NodeJs, Redis, Socket.io\)}{chapter.6}% 23
+\BOOKMARK [1][-]{section.6.2}{Architettura 2 \(AWS API Gateway, AWS IoT, AWS Lambda\)}{chapter.6}% 24
+\BOOKMARK [1][-]{section.6.3}{Architetture a confronto}{chapter.6}% 25
+\BOOKMARK [0][-]{chapter.7}{Workflow, testing e tecnologie di supporto}{}% 26
+\BOOKMARK [0][-]{chapter.8}{Conclusione}{}% 27
+\BOOKMARK [0][-]{chapter.9}{Sviluppi futuri}{}% 28
