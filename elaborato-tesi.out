@@ -14,15 +14,17 @@
 \BOOKMARK [2][-]{subsection.4.1.1}{Basi di dati}{section.4.1}% 14
 \BOOKMARK [2][-]{subsection.4.1.2}{Web services e server side framework}{section.4.1}% 15
 \BOOKMARK [1][-]{section.4.2}{Tecnologie selezionate}{chapter.4}% 16
-\BOOKMARK [0][-]{chapter.5}{Progettazione software}{}% 17
-\BOOKMARK [1][-]{section.5.1}{Database \(DynamoDb AWS\)}{chapter.5}% 18
-\BOOKMARK [1][-]{section.5.2}{NodeJs}{chapter.5}% 19
-\BOOKMARK [1][-]{section.5.3}{Redis}{chapter.5}% 20
-\BOOKMARK [1][-]{section.5.4}{Lambda AWS}{chapter.5}% 21
-\BOOKMARK [0][-]{chapter.6}{Architettura}{}% 22
-\BOOKMARK [1][-]{section.6.1}{Architettura 1 \(NodeJs, Redis, Socket.io\)}{chapter.6}% 23
-\BOOKMARK [1][-]{section.6.2}{Architettura 2 \(AWS API Gateway, AWS IoT, AWS Lambda\)}{chapter.6}% 24
-\BOOKMARK [1][-]{section.6.3}{Architetture a confronto}{chapter.6}% 25
-\BOOKMARK [0][-]{chapter.7}{Workflow, testing e tecnologie di supporto}{}% 26
-\BOOKMARK [0][-]{chapter.8}{Conclusione}{}% 27
-\BOOKMARK [0][-]{chapter.9}{Sviluppi futuri}{}% 28
+\BOOKMARK [2][-]{subsection.4.2.1}{Elastic beanstalk}{section.4.2}% 17
+\BOOKMARK [2][-]{subsection.4.2.2}{Redis}{section.4.2}% 18
+\BOOKMARK [0][-]{chapter.5}{Progettazione software}{}% 19
+\BOOKMARK [1][-]{section.5.1}{Database \(DynamoDb AWS\)}{chapter.5}% 20
+\BOOKMARK [1][-]{section.5.2}{NodeJs}{chapter.5}% 21
+\BOOKMARK [1][-]{section.5.3}{Redis}{chapter.5}% 22
+\BOOKMARK [1][-]{section.5.4}{Lambda AWS}{chapter.5}% 23
+\BOOKMARK [0][-]{chapter.6}{Architettura}{}% 24
+\BOOKMARK [1][-]{section.6.1}{Architettura 1 \(NodeJs, Redis, Socket.io\)}{chapter.6}% 25
+\BOOKMARK [1][-]{section.6.2}{Architettura 2 \(AWS API Gateway, AWS IoT, AWS Lambda\)}{chapter.6}% 26
+\BOOKMARK [1][-]{section.6.3}{Architetture a confronto}{chapter.6}% 27
+\BOOKMARK [0][-]{chapter.7}{Workflow, testing e tecnologie di supporto}{}% 28
+\BOOKMARK [0][-]{chapter.8}{Conclusione}{}% 29
+\BOOKMARK [0][-]{chapter.9}{Sviluppi futuri}{}% 30

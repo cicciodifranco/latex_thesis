@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=latex 2016.1.12)  11 FEB 2016 16:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=latex 2016.1.12)  15 FEB 2016 16:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -356,16 +356,16 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 
 (./cap3.tex
 Capitolo 3.
-) [8
+[8
 
 
 
-]
+]) [9]
 \openout2 = `cap4.aux'.
 
  (./cap4.tex
 Capitolo 4.
-[9
+[10
 
 
 
@@ -375,18 +375,24 @@ Overfull \hbox (0.26016pt too wide) in paragraph at lines 24--26
 svi-lup-pa-ta e ospi-
  []
 
-[10] [11] [12]
-Overfull \hbox (4.83424pt too wide) in paragraph at lines 121--122
+[11] [12]
+Overfull \hbox (4.80296pt too wide) in paragraph at lines 75--76
+\OT1/cmr/m/it/12 in-te-ro-pe-ra-ble machine-to-machine in-te-rac-tion over a ne
+t-work.
+ []
+
+[13]
+Overfull \hbox (4.83424pt too wide) in paragraph at lines 107--108
 []\OT1/cmr/m/n/12 AWS IoT: si-ste-ma di ge-stio-ne per IoT ba-sa-to sul pro-to-
 col-lo MQTT. 
  []
 
-) [13]
+[14]) [15]
 \openout2 = `cap5.aux'.
 
  (./cap5.tex
 Capitolo 5.
-) [14
+) [16
 
 
 
@@ -396,7 +402,7 @@ Capitolo 5.
  (./cap6.tex
 Capitolo 6.
 File: ./img/main_arch.png Graphic file (type eps)
-<./img/main_arch.png> [15
+<./img/main_arch.png> [17
 
 
 
@@ -404,12 +410,12 @@ File: ./img/main_arch.png Graphic file (type eps)
 Overfull \vbox (0.2831pt too high) has occurred while \output is active []
 
 
-[16]) [17]
+[18]) [19]
 \openout2 = `cap7.aux'.
 
  (./cap7.tex
 Capitolo 7.
-) [18
+) [20
 
 
 
@@ -418,7 +424,7 @@ Capitolo 7.
 
  (./cap8.tex
 Capitolo 8.
-) [19
+) [21
 
 
 
@@ -427,7 +433,7 @@ Capitolo 8.
 
  (./cap9.tex
 Capitolo 9.
-) [20
+) [22
 
 
 
@@ -440,7 +446,7 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 79.
 Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 79.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 79.
 Package rerunfilecheck Info: File `elaborato-tesi.out' has not changed.
-(rerunfilecheck)             Checksum: 07E0B119C6294C3F415D4F5E4176BF8A;1795.
+(rerunfilecheck)             Checksum: AEBAFD76A7A150A7CEE5F6120C1C43A1;1925.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
@@ -448,12 +454,12 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 79.
  ) 
 Here is how much of TeX's memory you used:
- 6610 strings out of 495010
- 95107 string characters out of 6180874
- 197082 words of memory out of 5000000
- 9705 multiletter control sequences out of 15000+600000
- 12145 words of font info for 42 fonts, out of 8000000 for 9000
+ 6614 strings out of 495010
+ 95164 string characters out of 6180874
+ 197268 words of memory out of 5000000
+ 9708 multiletter control sequences out of 15000+600000
+ 12492 words of font info for 43 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 29i,13n,39p,955b,692s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 29i,13n,39p,1161b,692s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on elaborato-tesi.dvi (21 pages, 51376 bytes).
+Output written on elaborato-tesi.dvi (23 pages, 58480 bytes).
