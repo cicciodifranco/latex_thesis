@@ -3,18 +3,36 @@ Dovrà essere progettato un insieme di componenti software per la gestione real-
 Una serie di stalli di parcheggio sono monitorati da una videocamera connessa a internet e, tramite l'elaborazione dell'immagine, in tempo reale sarà notificato se uno stallo verrà liberato o occupato. Per facilitare la gestione  delle coordinate geografiche verrà usata la tecnica di clusteriing geografica denominata ``geohash" che suddivide in una griglia l'intero emisfero e permette di identificare un'area geografica con un'arbitraria precisione tramite una sequenza di bit. Sarà possibile reperire, dopo necessaria autenticazione, un insieme di stalli di parcheggio indicando il geohash interessato. Le informazioni che dovranno essere memorizzate per stalli e videocamere sono, oltre ad un id univoco e mnemonico, coordinate GPS e geohash ricavato dalle coordinate. In ogni entità oltre alle informazioni sulla localizzazione saranno presenti le rispettive relazioni relative al monitoraggio: ogni stallo di parcheggio dovrà contenere informazioni sulle videocamere che lo stanno monitorando e ogni videocamera dovrà contenere informazioni sugli stalli di parcheggio che sta monitorando.
 Tutte queste informazioni dovranno essere memorizzate in maniera persistente in una base dati e a supporto di questa dovrà essere presente un meccanismo di cache per velocizzare le comunicazioni.
 
-Ogni utente dopo aver effettuato il login e aver ottenuto un token di sicurezza potrà reperire le informazioni relative a gli stalli di parcheggio contenti nel geohash corrispondente alla posizione occupata dall'utente. Ad ogni richiesta il client fornirà il token che ha ottenuto tramite il login e la propria posizione GPS dalla quale verrà calcolato il geohash.
-
-Dopo che la procedura di login sarà andata a buon fine e dopo aver reperito le informazioni relative alla propria posizione il client può creare un collegamento con il server tramite web-socket per ricevere gli aggiornamenti sugli stalli. Sarà previsto pure un handshake token based tramite web-socket.
-
 Una videocamera quando rileva il cambio di stato di uno stallo di parcheggio, dopo previa autenticazione, dovrà notificare l'evento fornendo l'id dello stallo e il nuovo stato (``free" o ``busy").
+
+Ogni utente dopo aver effettuato il login e aver ottenuto un token di sicurezza potrà reperire le informazioni relative a gli stalli di parcheggio contenuti nel geohash corrispondente alla posizione occupata dall'utente. Ad ogni richiesta il client fornirà il token che ha ottenuto tramite il login e la propria posizione GPS dalla quale verrà calcolato il geohash.
+
+Dopo che la procedura di login sarà andata a buon fine e dopo aver reperito le informazioni relative alla propria posizione il client può creare un collegamento con il server tramite web-socket per ricevere gli aggiornamenti sugli stalli. Sarà previsto pure un handshake tramite web-socket dove verrà verificata la validità del token fornito.
+
+
 
 
 
 \section{Scalabilità delle risorse}
+L'architettura che sarà progettata dovrà far fronte a molteplici richieste simultaneamente e per facilitare la scalabilità orizzonatale tale architettura dovrà essere per lo più ``stateless" cioè nessuna informazione sullo stato dei dovra essere memorizzata. Le comunicazioni saranno effettuate tutte tramite uno specificato endpoint che si occuperà di ditribuire le richieste in maniera equa al sistema cloud. Per velocizzare la fase di verifica del token di sicurezza potrà essere usata cache condivisa dove saranno memorizzate le ultime credenziali usate dall'utente e la validità del token memorizzato in millisecondi. 
 
-\section{Ottimizzazione dell' I/O sul DB}
 
-\subsection{Politiche di gestione della cache}
+
+\section{Ottimizzazione dell' I/O sul DB e gestione della cache}
+Per ridurre l'I/O sul database dovrà essere presente un meccanismo di cache condivisa a tutta l'infrastruttura back endche segua la politica ``Last recently used" (LRU). Tale politica usata con il meccanismo del ``Time to live" (TTL) dovrà ridurre i tempi di elaborazione delle richieste e il numero effettivo di query sul DB. In cache dovranno essere mantenute le suguenti informazioni:
+
+\begin{itemize}
+	\item Singolo stallo di parcheggio e relativo stato.
+	\item Aggregato di stalli di parcheggio con i relativi stati.
+	\item Token forniti dagli utenti e relativi propietari.
+\end{itemize}
+
+I dati presenti in cache dovranno mantenere la consistenza rispetto a quelli memorizzati nel database 
+
 
 \section{Notifica utenti} 
+
+
+
+\section{Classificazione eventi}
+Nell'ambito dell'attività di sviluppo del software di videoanalisi del progetto Parksmart sono stati implementati alcuni algoritmi di riconoscimento di particolari eventi, comprendenti lo stato di occupazione di singoli stalli di parcheggio. Il software cosi prodotto viene eseguito su sistemi embedded dedicati al fine di distribuire la computazione dell'attività di riconoscimento per informare l'utente su quale sia lo stallo di parcheggio libero più vicino. Allo stato attuale la classificazione degli eventi comprende esclusivamente la variazione di stato di uno stallo di parcheggio da libero a occupato e viceversa da occupato a libero, ma saranno successivamente introdotti alre tipologie di classificazione eventi per ampliare il ventaglio di caratteristiche di prodotto sviluppate dal progetto Parksmart.

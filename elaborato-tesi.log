@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=latex 2016.1.12)  15 FEB 2016 16:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=latex 2016.1.12)  15 FEB 2016 18:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -445,9 +445,15 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 79.
 (./cap8.aux) (./cap9.aux))
 Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 79.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 79.
-Package rerunfilecheck Info: File `elaborato-tesi.out' has not changed.
-(rerunfilecheck)             Checksum: AEBAFD76A7A150A7CEE5F6120C1C43A1;1925.
 
+
+Package rerunfilecheck Warning: File `elaborato-tesi.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `elaborato-tesi.out':
+(rerunfilecheck)             Before: AEBAFD76A7A150A7CEE5F6120C1C43A1;1925
+(rerunfilecheck)             After:  92FADD95BB95C4DE5A5551D2439A78C1;1856.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -462,4 +468,4 @@ Here is how much of TeX's memory you used:
  14 hyphenation exceptions out of 8191
  29i,13n,39p,1161b,692s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on elaborato-tesi.dvi (23 pages, 58480 bytes).
+Output written on elaborato-tesi.dvi (23 pages, 58312 bytes).
