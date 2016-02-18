@@ -27,27 +27,35 @@
 
 \large
 \begin{enumerate}[label*=\arabic*.]
-\item Introduzione
-\item Obiettivi
+\item Introduzione %1
+\item Obiettivi %2
 \begin{enumerate}[label*=\arabic*.]
-	\item Problematiche affrontate
-	\item Obiettivi raggiunti
+	\item Problematiche affrontate %2.1
+	\item Obiettivi raggiunti % 2.2
 \end{enumerate}
-\item Requisiti
+\item Requisiti %3
 \begin{enumerate}[label*=\arabic*.]
-	\item Classificazione eventi
-	\item Scalabilit\`a delle risorse
-	\item Ottimizzazione di I/O sul DB
+	\item Scalabilit\`a delle risorse %3.1
+	\item Ottimizzazione dell' I/O sul DB e gestione della cache
 	\item Notifica utenti
 \end{enumerate}
 
 \item Tecnologie
 \begin{enumerate}[label*=\arabic*.]
 	\item Analisi comparativa
+	\begin{enumerate}[label*=\arabic*.]
+		\item Basi di dati
+		\item Web services e server side framework
+	\end{enumerate}
 	\item Teconologie selezionate
+	\begin{enumerate}[label*=\arabic*.]
+		\item Elastic beanstalk
+		\item Redis
+	\end{enumerate}
 \end{enumerate}
 \item Progettazione del software
 \begin{enumerate}[label*=\arabic*.]
+	\item Classificazione eventi
 	\item Database (DynamoDb AWS)
 	\item NodeJs (Google event-driven javascript framework)
 	\item Redis (All in-memory key-value DB) e politiche di gestione cache

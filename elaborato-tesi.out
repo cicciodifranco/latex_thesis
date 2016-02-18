@@ -5,21 +5,21 @@
 \BOOKMARK [1][-]{section.2.2}{Obiettivi raggiunti}{chapter.2}% 5
 \BOOKMARK [0][-]{chapter.3}{Rquisiti}{}% 6
 \BOOKMARK [1][-]{section.3.1}{Scalabilit\340 delle risorse}{chapter.3}% 7
-\BOOKMARK [1][-]{section.3.2}{Ottimizzazione dell' I/O sul DB}{chapter.3}% 8
-\BOOKMARK [2][-]{subsection.3.2.1}{Politiche di gestione della cache}{section.3.2}% 9
-\BOOKMARK [1][-]{section.3.3}{Notifica utenti}{chapter.3}% 10
-\BOOKMARK [0][-]{chapter.4}{Tecnologie}{}% 11
-\BOOKMARK [1][-]{section.4.1}{Analisi comparativa}{chapter.4}% 12
-\BOOKMARK [2][-]{subsection.4.1.1}{Basi di dati}{section.4.1}% 13
-\BOOKMARK [2][-]{subsection.4.1.2}{Web services e server side framework}{section.4.1}% 14
-\BOOKMARK [1][-]{section.4.2}{Tecnologie selezionate}{chapter.4}% 15
-\BOOKMARK [2][-]{subsection.4.2.1}{Elastic beanstalk}{section.4.2}% 16
-\BOOKMARK [2][-]{subsection.4.2.2}{Redis}{section.4.2}% 17
-\BOOKMARK [0][-]{chapter.5}{Progettazione software}{}% 18
-\BOOKMARK [1][-]{section.5.1}{Database \(DynamoDb AWS\)}{chapter.5}% 19
-\BOOKMARK [1][-]{section.5.2}{NodeJs}{chapter.5}% 20
-\BOOKMARK [1][-]{section.5.3}{Redis}{chapter.5}% 21
-\BOOKMARK [1][-]{section.5.4}{Lambda AWS}{chapter.5}% 22
+\BOOKMARK [1][-]{section.3.2}{Ottimizzazione dell' I/O sul DB e gestione della cache}{chapter.3}% 8
+\BOOKMARK [1][-]{section.3.3}{Notifica utenti}{chapter.3}% 9
+\BOOKMARK [0][-]{chapter.4}{Tecnologie}{}% 10
+\BOOKMARK [1][-]{section.4.1}{Analisi comparativa}{chapter.4}% 11
+\BOOKMARK [2][-]{subsection.4.1.1}{Basi di dati}{section.4.1}% 12
+\BOOKMARK [2][-]{subsection.4.1.2}{Web services e server side framework}{section.4.1}% 13
+\BOOKMARK [1][-]{section.4.2}{Tecnologie selezionate}{chapter.4}% 14
+\BOOKMARK [2][-]{subsection.4.2.1}{Elastic beanstalk}{section.4.2}% 15
+\BOOKMARK [2][-]{subsection.4.2.2}{Redis}{section.4.2}% 16
+\BOOKMARK [0][-]{chapter.5}{Progettazione software}{}% 17
+\BOOKMARK [1][-]{section.5.1}{Classificazione eventi}{chapter.5}% 18
+\BOOKMARK [1][-]{section.5.2}{Database \(DynamoDb AWS\)}{chapter.5}% 19
+\BOOKMARK [1][-]{section.5.3}{NodeJs}{chapter.5}% 20
+\BOOKMARK [1][-]{section.5.4}{Redis}{chapter.5}% 21
+\BOOKMARK [1][-]{section.5.5}{Lambda AWS}{chapter.5}% 22
 \BOOKMARK [0][-]{chapter.6}{Architettura}{}% 23
 \BOOKMARK [1][-]{section.6.1}{Architettura 1 \(NodeJs, Redis, Socket.io\)}{chapter.6}% 24
 \BOOKMARK [1][-]{section.6.2}{Architettura 2 \(AWS API Gateway, AWS IoT, AWS Lambda\)}{chapter.6}% 25

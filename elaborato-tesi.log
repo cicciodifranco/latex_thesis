@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=latex 2016.1.12)  15 FEB 2016 18:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=latex 2016.1.12)  18 FEB 2016 12:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -297,9 +297,9 @@ File: ucsencs.def 2011/01/21 Fixes to fontencodings LGR, T3
 \openout2 = `frontespizio.aux'.
 
  (./frontespizio.tex
-File: ./img/logo_unict.png Graphic file (type eps)
+File: ./img/logo_unict2.png Graphic file (type eps)
 
-<./img/logo_unict.png>
+<./img/logo_unict2.png>
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <10.95> on input line 8.
 LaTeX Font Info:    External font `cmex10' loaded for size
@@ -360,12 +360,12 @@ Capitolo 3.
 
 
 
-]) [9]
+]) [9] [10]
 \openout2 = `cap4.aux'.
 
  (./cap4.tex
 Capitolo 4.
-[10
+[11
 
 
 
@@ -375,34 +375,41 @@ Overfull \hbox (0.26016pt too wide) in paragraph at lines 24--26
 svi-lup-pa-ta e ospi-
  []
 
-[11] [12]
+[12] [13]
 Overfull \hbox (4.80296pt too wide) in paragraph at lines 75--76
 \OT1/cmr/m/it/12 in-te-ro-pe-ra-ble machine-to-machine in-te-rac-tion over a ne
 t-work.
  []
 
-[13]
+[14]
 Overfull \hbox (4.83424pt too wide) in paragraph at lines 107--108
 []\OT1/cmr/m/n/12 AWS IoT: si-ste-ma di ge-stio-ne per IoT ba-sa-to sul pro-to-
 col-lo MQTT. 
  []
 
-[14]) [15]
+[15]) [16]
 \openout2 = `cap5.aux'.
 
  (./cap5.tex
 Capitolo 5.
-) [16
+[17
 
 
 
 ]
+File: ./img/database_ps.png Graphic file (type eps)
+ <./img/database_ps.png>
+File: ./img/database_cam.png Graphic file (type eps)
+ <./img/database_cam.png> [18]) [19]
 \openout2 = `cap6.aux'.
 
  (./cap6.tex
 Capitolo 6.
+
+LaTeX Warning: File `./img/main_arch.png' not found on input line 6.
+
 File: ./img/main_arch.png Graphic file (type eps)
-<./img/main_arch.png> [17
+<./img/main_arch.png> [20
 
 
 
@@ -410,12 +417,12 @@ File: ./img/main_arch.png Graphic file (type eps)
 Overfull \vbox (0.2831pt too high) has occurred while \output is active []
 
 
-[18]) [19]
+[21]) [22]
 \openout2 = `cap7.aux'.
 
  (./cap7.tex
 Capitolo 7.
-) [20
+) [23
 
 
 
@@ -424,7 +431,7 @@ Capitolo 7.
 
  (./cap8.tex
 Capitolo 8.
-) [21
+) [24
 
 
 
@@ -433,39 +440,33 @@ Capitolo 8.
 
  (./cap9.tex
 Capitolo 9.
-) [22
+) [25
 
 
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 79.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 79.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 87.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 87.
  (./elaborato-tesi.aux (./frontespizio.aux) (./cap1-intro.aux)
 (./cap2.aux) (./cap3.aux) (./cap4.aux) (./cap5.aux) (./cap6.aux) (./cap7.aux)
 (./cap8.aux) (./cap9.aux))
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 79.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 79.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 87.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 87.
+Package rerunfilecheck Info: File `elaborato-tesi.out' has not changed.
+(rerunfilecheck)             Checksum: 6FEAD7B4AABF0E02E3D4698A1E6E5F46;1861.
 
-
-Package rerunfilecheck Warning: File `elaborato-tesi.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `elaborato-tesi.out':
-(rerunfilecheck)             Before: AEBAFD76A7A150A7CEE5F6120C1C43A1;1925
-(rerunfilecheck)             After:  92FADD95BB95C4DE5A5551D2439A78C1;1856.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 79.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 87.
  ) 
 Here is how much of TeX's memory you used:
- 6614 strings out of 495010
- 95164 string characters out of 6180874
- 197268 words of memory out of 5000000
- 9708 multiletter control sequences out of 15000+600000
+ 6619 strings out of 495010
+ 95248 string characters out of 6180874
+ 197174 words of memory out of 5000000
+ 9711 multiletter control sequences out of 15000+600000
  12492 words of font info for 43 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  29i,13n,39p,1161b,692s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on elaborato-tesi.dvi (23 pages, 58312 bytes).
+Output written on elaborato-tesi.dvi (26 pages, 65796 bytes).

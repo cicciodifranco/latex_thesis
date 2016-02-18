@@ -1,8 +1,34 @@
 \chapter{Progettazione software}
 
 
-\section{Database (DynamoDb AWS)}
+\section{Classificazione eventi}
+Nell'ambito dell'attività di sviluppo del software di videoanalisi del progetto Parksmart sono stati implementati alcuni algoritmi di riconoscimento di particolari eventi, comprendenti lo stato di occupazione di singoli stalli di parcheggio. Il software cosi prodotto viene eseguito su sistemi embedded dedicati al fine di distribuire la computazione dell'attività di riconoscimento per informare l'utente su quale sia lo stallo di parcheggio libero più vicino. Allo stato attuale la classificazione degli eventi comprende esclusivamente la variazione di stato di uno stallo di parcheggio da libero a occupato e viceversa da occupato a libero, ma saranno successivamente introdotti alre categorie di eventi per ampliare il ventaglio di caratteristiche di prodotto sviluppate dal progetto Parksmart.
+\vspace{5.7truecm}
 
+\section{Database (DynamoDb AWS)}
+Le entità che sono memorizzate nel DBMS in maniera persistente sono telecamere e stalli di parcheggio. Oltre a gli attributi definiti dai requisiti sono stati aggiunti alcuni attributi, membri di indici globali secondari, utili all'amministrazione. Data la tecnologia selezionata (DynamoDb) lo schema progettato ha la seguente struttura:
+
+\vspace{0.5truecm}
+
+\centerline{\includegraphics[scale=1, bb=0 0 400 220]{./img/database_ps.png}}
+
+\vspace{0.5truecm}
+
+\centerline{\includegraphics[scale=0.9, bb=0 0 450 250]{./img/database_cam.png}}
+
+\vspace{0.5truecm}
+
+Le query che sono state implementate sono le seguenti:
+
+
+\begin{itemize}
+	\item getPsByHash: da un geohash in input reperiscono tutti gli stalli di parcheggio che vi appartengono.
+	\item getPsByPosition : data una posizione arbitraria si calcola il geohash e si reperiscono tutti gli stalli che vi appartengono.
+	\item getPsByBounds : date due coppie coordinate si calcolano tutti i geohash all'interno dell'area e si reperiscono tutti gli stalli che vi appartengono.
+	\item getCamsByHash : da un geohash in input reperiscono tutte le videocamere che vi appartengono.
+	\item getCamsByPosition : data una posizione arbitraria viene calcolato il geohash e si reperiscono tutti le videocamere che vi appartengono.
+	\item getCamsByBounds : date due coppie coordinate si calcolano tutti i geohash all'interno dell'area e si reperiscono tutte le videocamere che vi appartengono.
+\end{itemize}
 
 \section{NodeJs}
 
