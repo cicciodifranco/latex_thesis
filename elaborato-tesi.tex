@@ -6,6 +6,56 @@
 \usepackage{enumitem}
 \usepackage[italian]{babel}
 \usepackage[utf8x]{inputenc}
+\usepackage{listings}
+\usepackage{color}
+\definecolor{lightgray}{rgb}{.9,.9,.9}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+\lstdefinelanguage{JavaScript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break, this},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstset{
+   language=JavaScript,
+   backgroundcolor=\color{lightgray},
+   extendedchars=true,
+   basicstyle=\footnotesize\ttfamily,
+   showstringspaces=false,
+   showspaces=false,
+   numbers=none,
+   numberstyle=\footnotesize,
+   numbersep=9pt,
+   tabsize=2,
+   breaklines=true,
+   showtabs=false,
+   captionpos=b
+}
+
+\lstdefinelanguage{HTTP}{
+  keywords={GET, POST, PUT, DELETE, OPTIONS, Number, String, Boolean},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={HTTP},
+  ndkeywordstyle=\color{blue}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
 
 
 \title{Sistema cloud based real-time \\per la gestione di eventi geolocalizzati.}
@@ -28,34 +78,38 @@
 \large
 \begin{enumerate}[label*=\arabic*.]
 \item Introduzione %1
+
 \item Obiettivi %2
 \begin{enumerate}[label*=\arabic*.]
 	\item Problematiche affrontate %2.1
 	\item Obiettivi raggiunti % 2.2
 \end{enumerate}
+
 \item Requisiti %3
 \begin{enumerate}[label*=\arabic*.]
 	\item Scalabilit\`a delle risorse %3.1
-	\item Ottimizzazione dell' I/O sul DB e gestione della cache
-	\item Notifica utenti
+	\item Ottimizzazione dell' I/O sul DB e gestione della cache %3.2
+	\item Notifica utenti %3.3
 \end{enumerate}
 
-\item Tecnologie
+\item Tecnologie %4
 \begin{enumerate}[label*=\arabic*.]
-	\item Analisi comparativa
+	\item Analisi comparativa %4.1
 	\begin{enumerate}[label*=\arabic*.]
-		\item Basi di dati
-		\item Web services e server side framework
+		\item Basi di dati %4.1.1
+		\item Web services e server side framework %4.1.2
 	\end{enumerate}
-	\item Teconologie selezionate
+
+	\item Teconologie selezionate %4.2
 	\begin{enumerate}[label*=\arabic*.]
-		\item Elastic beanstalk
-		\item Redis
+		\item Elastic beanstalk %4.2.1
+		\item Redis %4.2.2
 	\end{enumerate}
 \end{enumerate}
-\item Progettazione del software
+
+\item Progettazione del software %5
 \begin{enumerate}[label*=\arabic*.]
-	\item Classificazione eventi
+	\item Classificazione eventi %5.1i
 	\item Database (DynamoDb AWS)
 	\item NodeJs (Google event-driven javascript framework)
 	\item Redis (All in-memory key-value DB) e politiche di gestione cache

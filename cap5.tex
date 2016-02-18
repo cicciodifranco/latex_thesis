@@ -18,19 +18,211 @@ Le entità che sono memorizzate nel DBMS in maniera persistente sono telecamere 
 
 \vspace{0.5truecm}
 
-Le query che sono state implementate sono le seguenti:
+Le operazioni che sono state implementate sono le seguenti:
 
 
 \begin{itemize}
-	\item getPsByHash: da un geohash in input reperiscono tutti gli stalli di parcheggio che vi appartengono.
-	\item getPsByPosition : data una posizione arbitraria si calcola il geohash e si reperiscono tutti gli stalli che vi appartengono.
-	\item getPsByBounds : date due coppie coordinate si calcolano tutti i geohash all'interno dell'area e si reperiscono tutti gli stalli che vi appartengono.
-	\item getCamsByHash : da un geohash in input reperiscono tutte le videocamere che vi appartengono.
-	\item getCamsByPosition : data una posizione arbitraria viene calcolato il geohash e si reperiscono tutti le videocamere che vi appartengono.
-	\item getCamsByBounds : date due coppie coordinate si calcolano tutti i geohash all'interno dell'area e si reperiscono tutte le videocamere che vi appartengono.
+	\item Aggiornamento dello stato (Free/Busy) di uno specifico stallo di parcheggio.
+	\item Richiesta di stalli di parcheggio di un geohash: da un geohash in input reperiscono tutti gli stalli di parcheggio che vi appartengono.
+	\item Richiesta di stalli di parcheggio a partire da una posizione : data una posizione arbitraria si calcola il geohash e si reperiscono tutti gli stalli che vi appartengono.
+	\item Richiesta di stalli di parcheggio a partire da un area geografica delimitata da una coppia di coordinate : date due coppie coordinate si calcolano tutti i geohash all'interno dell'area e si reperiscono tutti gli stalli che vi appartengono.
+	\item Richiesta di videocamere a partire da un geohash : da un geohash in input reperiscono tutte le videocamere che vi appartengono.
+	\item Richiesta di videocamere a partire da una posizione : data una posizione arbitraria viene calcolato il geohash e si reperiscono tutti le videocamere che vi appartengono.
+	\item Richiesta di videocamere a partire da un area geografica delimitata da una coppia di coordinate : date due coppie coordinate si calcolano tutti i geohash all'interno dell'area e si reperiscono tutte le videocamere che vi appartengono.
+	\item Richiesta di videocamere per modello : dato uno specifico modello di videocamera vengono reperite tutte le videocamere di quel modello.
+	\item Richiesta di viedocamere per produttore : dato un produttore di videocamere si reperiscono tutte le viedeocamere vendute da quel produttore.
 \end{itemize}
 
+Date le operazioni appena descritte quelle che saranno utilizzate nell'architettura di interesse sono solo quelle relative a gli stalli di parcheggio.
+\vspace{0.5truecm}
+
+
 \section{NodeJs}
+L'applicazione in nodejs è composta da due componenti fondamentali:
+\begin{itemize}
+	\item Moduli: librerie usate all'interno dell'applicazione.
+	\item Routes: identificatori di risorse esposte all'esterno.
+\end{itemize}
+I moduli di terze parti che sono stai utilizzati comprendono ``Express js" un framekork utile per il routing, ``ngeohash" libreria utile per codificare e decodifica dei geohash, ``AWS Sdk" che contiene tutte le librerie necessarie per comunicare con i servizi AWS (Es. DynamoDb), ``node-redis" modulo per eseguire le operazioni in cache e infine ``socket.io"+``socket.io-redis" per notificare gli eventi a gli utenti.
+E' stato creato modulo ``psm" ad-hoc per i nostri scopi che comprende i seguenti file:
+\begin{enumerate}
+	\item ParkingSpace.js con le seguenti funzioni ``pubbliche":
+	\begin{itemize}
+			\item updateParkingSpace(idPs) : aggiorna lo stato (Free/Busy) di uno specifico stallo di parcheggio.
+			\item getPsByHash(hashSource): da un geohash in input reperiscono tutti gli stalli di parcheggio che vi appartengono.
+			\item getPsByPosition(latitude, longitude) : data una posizione arbitraria si calcola il geohash e si reperiscono tutti gli stalli che vi appartengono.
+			\item getPsByBounds(latHi, latLo, lngHi, lngLo) : date due coppie coordinate si calcolano tutti i geohash all'interno dell'area e si reperiscono tutti gli stalli che vi appartengono.
+		\end{itemize}
+
+	\item Camera.js con le seguenti funzioni ``pubbliche":
+	\begin{itemize}
+			\item getCamsByHash(hashSource) : da un geohash in input reperiscono tutte le videocamere che vi appartengono.
+			\item getCamsByPosition(latitude, longitude) : data una posizione arbitraria viene calcolato il geohash e si reperiscono tutti le videocamere che vi appartengono.
+			\item getCamsByBounds(latHi, latLo, lngHi, lngLo) : date due coppie coordinate si calcolano tutti i geohash all'interno dell'area e si reperiscono tutte le videocamere che vi appartengono.
+			\item getCamsByModel (model): dato uno specifico modello di videocamera vengono reperite tutte le videocamere di quel modello.
+			\item getCamsByVendor (vendor) : dato un venditore di videocamere si reperiscono tutte le viedeocamere vendute da quel produttore.
+	\end{itemize}
+
+	\item Websocket.js con le seguenti funzioni ``pubbliche":
+	\begin{itemize}
+		\item sendMessage(channel, message) : invia un messaggio in uno specifico namespace.
+	\end{itemize}
+\end{enumerate}
+
+A seguire un frammento di codice dal file PerkingSpace.js
+
+\begin{lstlisting}[caption=Code of getPsByPosition]
+
+var AWS = require('./AWS_config.js').AWS_config();
+var dynamo = require('dynamodb-doc');
+var geohash = require('ngeohash');
+var docClient = new dynamo.DynamoDB();
+var async = require('async');
+
+
+
+var asyncWorker = function(hash, returnData){
+
+    this.returnData=returnData;
+    this.hash=hash;
+    this.getHash = function(callback){
+
+
+        var params = {};
+        params.TableName = 'Parking_space';
+        params.IndexName = 'GeoHash';
+        
+        params.KeyConditions = [docClient.Condition('GeoHash', 'EQ', hash)];
+
+        docClient.query(params, function(err, data){
+
+            if(!err && data){
+                Array.prototype.push.apply(returnData.Items, data.Items);
+                
+            }
+            callback(err, true);
+        });
+
+
+    }
+}
+
+
+function ParkingSpace(){
+
+
+
+	return {
+		
+		...
+		...
+		
+		getPsByPosition: function(lat, lng, callback) {
+		    
+		    if(lat && lng && callback && typeof(callback)==='function'){
+		        var hash = geohash.encode(lat, lng, 7)
+		        
+		        var hashArray = geohash.neighbors(hash, 7);
+		        hashArray[hashArray.length]=hash;
+		        var fnArray = [];
+		        var returnData = {};
+		        returnData.Items = [];
+		        for (var i in hashArray){
+		            fnArray[i]= (new asyncWorker(hashArray[i], returnData)).getHash;
+		        }
+		        async.parallel(fnArray, function(err){
+
+	              	callback(null, returnData);
+		           
+		        });
+		    }
+		    else
+		        callback('Invalid params', null);
+		    
+		    
+		}, 
+
+		...
+	}
+}
+
+exports.ParkingSpace= ParkingSpace();
+
+
+\end{lstlisting}
+
+\vspace{0.5truecm}
+Le URI esposte all'esterno sono le seguenti:
+
+\lstset{language=HTTP}          
+
+\begin{lstlisting}[frame=single]
+
+HTTP 1.1 
+GET /ps/getbyposition
+
+{
+	"lat" : Number,
+	"lng" : Number
+}
+
+\end{lstlisting}
+
+\vspace{1truecm}
+\begin{lstlisting}[frame=single]
+
+HTTP 1.1 
+GET /ps/getbyhash
+
+{
+	"hashsource" : string
+}
+
+\end{lstlisting}
+
+
+\begin{lstlisting}[frame=single]
+
+HTTP 1.1 
+GET /ps/getbybounds
+
+{
+	"lat_lo" : Number,
+	"lng_lo" : Number,
+	"lat_hi" : Number,
+	"lng_hi" : Number
+}
+
+\end{lstlisting}
+
+
+\begin{lstlisting}[frame=single]
+
+HTTPs 1.1 
+GET /ps/update
+
+{
+	"IdPs" : String,
+	"Free" : Boolean
+}
+
+\end{lstlisting}
+
+\begin{lstlisting}[frame=single]
+
+HTTP 1.1 
+GET /ps/getbyposition
+
+{
+	"lat" : Number,
+	"lng" : Number
+}
+
+\end{lstlisting}
+
+\end{document}
+
+
 
 \section{Redis}
 

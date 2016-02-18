@@ -34,6 +34,16 @@ DynamoDb è una soluzione enterprise completamente sviluppata e ospitata da AWS 
 	\item 5 indici locali secondari (local secondary index)
 \end{itemize}
 DynamoDb è un DBMS pensato per essere performante e altamente scalabile perciò non offre alcun tipo di referenziamento con altre tabelle e di conseguenza tutte le operazione ad esse correllate come join o transazioni.
+Le operazioni che si possono effettuare con DynamoDb sono le seguenti:
+\begin{itemize}
+	\item GetItem : data la primary key (Hash) viene reperito il record corrispondente.
+	\item PutItem : inserisce un nuovo record nel database.
+	\item Query : reperisce record secondo indici secondari e offre la possibilità di aggiungere condizioni.
+	\item Scan : offre la possibilità di fare query su attributi non chiave.
+	\item UpdateItem : aggiorna un record esistente.
+	\item DeleteItem : elimina uno specifico record dal database.
+	\item BatchGetItem : reperisce record anche da più tabelle.
+\end{itemize}  
 
 \subsubsection*{MongoDb}
 MongoDb è un DBMS molto utilizzato e memorizza i dati secondo il modello a documento. Anch'esso è schema less ed è stato pensato per applicazioni in continua evoluzione. Completamente gratuito deve essere ospitato da un provider di terze parti e di conseguenza le prestazioni dipendono dall'ambiente in cui è eseguito. MongoDb offre sia la possibilità di refernziare sia la possibilità di includere altre entità (documenti). Come altri DBMS nella categoria NoSql anche Mongo può essere eseguito su un ambiente distribuito per favorirne prestazioni e scalabilità. Ogni documento in una collezzione è identificato da un id univoco, tale id oltre che essere fondamentale per l'engine di mongo è molto utile per refernziare altri documenti o effettuare query complesse.
