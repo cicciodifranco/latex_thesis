@@ -43,8 +43,8 @@ L'applicazione in nodejs è composta da due componenti fondamentali:
 	\item Moduli: librerie usate all'interno dell'applicazione.
 	\item Routes: identificatori di risorse esposte all'esterno.
 \end{itemize}
-I moduli di terze parti che sono stai utilizzati comprendono ``Express js" un framekork utile per il routing, ``ngeohash" libreria utile per codificare e decodifica dei geohash, ``AWS Sdk" che contiene tutte le librerie necessarie per comunicare con i servizi AWS (Es. DynamoDb), ``node-redis" modulo per eseguire le operazioni in cache e infine ``socket.io"+``socket.io-redis" per notificare gli eventi a gli utenti.
-E' stato creato modulo ``psm" ad-hoc per i nostri scopi che comprende i seguenti file:
+I moduli di terze parti che sono stai utilizzati comprendono ``Express js" un framework utile per il routing, ``ngeohash" libreria utile per codificare e decodificare dei geohash, ``AWS Sdk" che contiene tutte le librerie necessarie per comunicare con i servizi AWS (Es. DynamoDb), ``node-redis" modulo per eseguire le operazioni in cache e infine ``socket.io"+``socket.io-redis" per notificare gli eventi a gli utenti.
+E' stato creato un modulo (``psm") ad-hoc per i nostri scopi che comprende i seguenti file:
 \begin{enumerate}
 	\item ParkingSpace.js con le seguenti funzioni ``pubbliche":
 	\begin{itemize}
@@ -161,6 +161,7 @@ Le URI esposte all'esterno sono le seguenti:
 HTTP 1.1 
 GET /ps/getbyposition
 
+Params:
 {
 	"lat" : Number,
 	"lng" : Number
@@ -174,8 +175,9 @@ GET /ps/getbyposition
 HTTP 1.1 
 GET /ps/getbyhash
 
+Params:
 {
-	"hashsource" : string
+	"hashsource" : String
 }
 
 \end{lstlisting}
@@ -186,6 +188,7 @@ GET /ps/getbyhash
 HTTP 1.1 
 GET /ps/getbybounds
 
+Params:
 {
 	"lat_lo" : Number,
 	"lng_lo" : Number,
@@ -201,6 +204,7 @@ GET /ps/getbybounds
 HTTPs 1.1 
 GET /ps/update
 
+Params:
 {
 	"IdPs" : String,
 	"Free" : Boolean
@@ -208,19 +212,8 @@ GET /ps/update
 
 \end{lstlisting}
 
-\begin{lstlisting}[frame=single]
 
-HTTP 1.1 
-GET /ps/getbyposition
 
-{
-	"lat" : Number,
-	"lng" : Number
-}
-
-\end{lstlisting}
-
-\end{document}
 
 
 
