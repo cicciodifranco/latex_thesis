@@ -152,7 +152,7 @@ exports.ParkingSpace= ParkingSpace();
 \end{lstlisting}
 
 \vspace{0.5truecm}
-Le URI esposte all'esterno sono le seguenti:
+Ogni utente, per accedere ad una risorsa esposta all'esterno, deve aggiungere nell'``header" della richiesta il token che gli è stato da cognito dato dopo aver effettuato il login. Quest'ultimo viene verificato con il sistema di autenticazione di AWS e infine salvato in cache. Le risorese esposte all'esterno per gli utenti sono le seguenti:
 
 \lstset{language=HTTP}          
 
@@ -198,6 +198,9 @@ Params:
 
 \end{lstlisting}
 
+L'aggiornamento dello stato di occupazione di uno stallo di parcheggio viene effettuato sempre tramite restAPI, in fase di sviluppo le telecamere si stanno autenticando con una ``simple http auth" e di conseguenza ogni telecamera è fornita di username e password. Successivamente verrà usato il meccanismo dei certificati X.509: ogni telecamera sarà fornita di un certificato e sarà presente un database di ceritficati validi.
+Per effettuare l'aggiornamento di uno stallo di parcheggio una telecamera deve effettuare una richiesta per la seguente risorsa:
+
 
 \begin{lstlisting}[frame=single]
 
@@ -212,12 +215,46 @@ Params:
 
 \end{lstlisting}
 
+Oltre all'identità della camera verrà verificata la relazione tra la videocamera e il parcheggio che deve eseere aggiornato di stato.
+
 
 
 
 
 
 \section{Redis}
+I vantaggi di usare una cache di supporto comune all'intero ``Auto scaling group" rende la condivisione di informazioni molto più semplice riuscendo cosi a salvare informazioni sullo stato dell'utente (es. ultimo token utilizzato) mantenendo comunque un modello stateless per l'applicazione. Per la strutturazione dei dati all'interno di redis viene sfruttata la funzione del ``path matching" cioè la possibilità di effettuare ricerche di chiavi con espressioni regolari. Uno stallo di parcheggio sarà memorizzato nel seguente modo:
+\begin{quotation}
+\textit{``geohash:idstallo"}
+\end{quotation}
+ e come valore sarà inserito lo stato dello stallo di parcheggio (0 free, 1 busy)
+
+quindi per reperire tutti gli stalli di un geohash basta richiedere le chiavi 
+
+\begin{quotation}
+\textit{``geohash:*"}
+\end{quotation}
+ oppure  se si vuole ottenere lo stato del singolo stallo di parcheggio basta richiedere 
+\begin{quotation}
+\textit{``*:idstallo"}
+\end{quotation} 
+Le informazioni che vengono salvate sono le seguenti:
+
+\begin{table}[htb]
+\centering
+\caption{Informazioni memorizzate su redis}
+\label{my-label}
+\begin{tabular}{|l|l|l|l|}
+\hline
+Chiave               & Struttura chiave & Valore               & Tipo valore \\ \hline
+Stallo di parcheggio & geohash:idstallo & Stato di occupazione & Bit         \\ \hline
+Token cognito        & idcognito:token  & TTL                  & Number      \\ \hline
+\end{tabular}
+\end{table}
+
+Ad ogni valore chiave viene assegnato un TTL che viene aggiornato automaticamente ad ogni utilizzo della chiave, meccanismo utile per l'eliminazione dei record che utilizzati meno frequentemente.
+
+
 
 \section{Lambda AWS}
 
