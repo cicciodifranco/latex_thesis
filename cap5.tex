@@ -1,4 +1,4 @@
-\chapter{Progettazione software}
+\chapter{Progettazione del software}
 
 
 \section{Classificazione eventi}
@@ -65,13 +65,13 @@ E' stato creato un modulo (``psm") ad-hoc per i nostri scopi che comprende i seg
 
 	\item Websocket.js con le seguenti funzioni ``pubbliche":
 	\begin{itemize}
-		\item sendMessage(channel, message) : invia un messaggio in uno specifico namespace.
+		\item sendMessage(channel, message) : invia un messaggio in uno specifica room.
 	\end{itemize}
 \end{enumerate}
 
 A seguire un frammento di codice dal file PerkingSpace.js
 
-\begin{lstlisting}[caption=Code of getPsByPosition]
+\begin{lstlisting}[caption=Code of getPsByPosition, frame=single]
 
 var AWS = require('./AWS_config.js').AWS_config();
 var dynamo = require('dynamodb-doc');
@@ -228,9 +228,7 @@ I vantaggi di usare una cache di supporto comune all'intero ``Auto scaling group
 \textit{``geohash:idstallo"}
 \end{quotation}
  e come valore sarà inserito lo stato dello stallo di parcheggio (0 free, 1 busy)
-
 quindi per reperire tutti gli stalli di un geohash basta richiedere le chiavi 
-
 \begin{quotation}
 \textit{``geohash:*"}
 \end{quotation}
@@ -248,15 +246,20 @@ Le informazioni che vengono salvate sono le seguenti:
 \hline
 Chiave               & Struttura chiave & Valore               & Tipo valore \\ \hline
 Stallo di parcheggio & geohash:idstallo & Stato di occupazione & Bit         \\ \hline
-Token cognito        & idcognito:token  & TTL                  & Number      \\ \hline
+Token cognito        & idcognito:token  & TTL (AWS)                 & Number      \\ \hline
 \end{tabular}
 \end{table}
 
 Ad ogni valore chiave viene assegnato un TTL che viene aggiornato automaticamente ad ogni utilizzo della chiave, meccanismo utile per l'eliminazione dei record che utilizzati meno frequentemente.
 
+\centerline{\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{./img/arch.png}}
 
+\section{Socket.io}
+L'applicazione si deve occupare di notificare gli utenti in prossimota dello stallo di parcheggio che ha cmabiato stato e per far ciò ogni utente, dopo aver completato l'handshake, si registrà nella room web-socket corrispondente al geohash che sta occupando. Appena verrà notificato da parte di una telecamera il cambio di stato di l'applicazione si occuperà di inviare il messaggio nella room corrispndente. Per riuscire a mantenere un modello stateless e nel frattempo gestire i messaggi in modo che tutti gli utenti ricevano l'aggiornamento viene sfruttato il meccanismo di publish/subscribe messo a dispozione da redis, volume di supporto comune, a tutta l'infrastruttura. In caso di \textit{``autoscaling"} ogni istanza ``eb" farà il subscribe su redis, all'arrivo di un agggiornamento l'istanza che verrà contattata effettuerà un publish su redis facendo in modo di notificare tutte le istanze e a sua volta notificare tutti gli utenti.
 
-\section{Lambda AWS}
+\vspace{0.5truecm}
+
+\centerline{\includegraphics[width=272px,height=400px]{./img/websocket.png}}
 
 
 
