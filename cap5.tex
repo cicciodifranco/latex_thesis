@@ -48,8 +48,8 @@ E' stato creato un modulo (``psm") ad-hoc per i nostri scopi che comprende i seg
 \begin{enumerate}
 	\item ParkingSpace.js con le seguenti funzioni ``pubbliche":
 	\begin{itemize}
-			\item updateParkingSpace(idPs) : aggiorna lo stato (Free/Busy) di uno specifico stallo di parcheggio.
-			\item getPsByHash(hashSource): da un geohash in input reperiscono tutti gli stalli di parcheggio che vi appartengono.
+			\item updateParkingSpace(idPs, free) : aggiorna lo stato (Free/Busy) di uno specifico stallo di parcheggio.
+			\item getPsByHash(hashSource) : da un geohash in input reperiscono tutti gli stalli di parcheggio che vi appartengono.
 			\item getPsByPosition(latitude, longitude) : data una posizione arbitraria si calcola il geohash e si reperiscono tutti gli stalli che vi appartengono.
 			\item getPsByBounds(latHi, latLo, lngHi, lngLo) : date due coppie coordinate si calcolano tutti i geohash all'interno dell'area e si reperiscono tutti gli stalli che vi appartengono.
 		\end{itemize}
@@ -59,7 +59,7 @@ E' stato creato un modulo (``psm") ad-hoc per i nostri scopi che comprende i seg
 			\item getCamsByHash(hashSource) : da un geohash in input reperiscono tutte le videocamere che vi appartengono.
 			\item getCamsByPosition(latitude, longitude) : data una posizione arbitraria viene calcolato il geohash e si reperiscono tutti le videocamere che vi appartengono.
 			\item getCamsByBounds(latHi, latLo, lngHi, lngLo) : date due coppie coordinate si calcolano tutti i geohash all'interno dell'area e si reperiscono tutte le videocamere che vi appartengono.
-			\item getCamsByModel (model): dato uno specifico modello di videocamera vengono reperite tutte le videocamere di quel modello.
+			\item getCamsByModel (model) : dato uno specifico modello di videocamera vengono reperite tutte le videocamere di quel modello.
 			\item getCamsByVendor (vendor) : dato un venditore di videocamere si reperiscono tutte le viedeocamere vendute da quel produttore.
 	\end{itemize}
 
@@ -152,7 +152,7 @@ exports.ParkingSpace= ParkingSpace();
 \end{lstlisting}
 
 \vspace{0.5truecm}
-Ogni utente, per accedere ad una risorsa esposta all'esterno, deve aggiungere nell'``header" della richiesta il token che gli è stato da cognito dato dopo aver effettuato il login. Quest'ultimo viene verificato con il sistema di autenticazione di AWS e infine salvato in cache. Le risorese esposte all'esterno per gli utenti sono le seguenti:
+Ogni utente, per accedere ad una risorsa esposta all'esterno, deve aggiungere nell'``header" della richiesta il token che gli è stato generato da cognito dopo aver effettuato il login. Quest'ultimo viene verificato con il sistema di autenticazione di AWS e infine salvato in cache. Le risorese esposte all'esterno per gli utenti sono le seguenti:
 
 \lstset{language=HTTP}          
 
@@ -199,7 +199,7 @@ Params:
 \end{lstlisting}
 
 L'aggiornamento dello stato di occupazione di uno stallo di parcheggio viene effettuato sempre tramite restAPI, in fase di sviluppo le telecamere si stanno autenticando con una ``simple http auth" e di conseguenza ogni telecamera è fornita di username e password. Successivamente verrà usato il meccanismo dei certificati X.509: ogni telecamera sarà fornita di un certificato e sarà presente un database di ceritficati validi.
-Per effettuare l'aggiornamento di uno stallo di parcheggio una telecamera deve effettuare una richiesta per la seguente risorsa:
+Per effettuare l'aggiornamento di uno stallo di parcheggio una telecamera deve effettuare una richiesta HTTP per la seguente risorsa:
 
 
 \begin{lstlisting}[frame=single]
@@ -251,15 +251,23 @@ Token cognito        & idcognito:token  & TTL (AWS)                 & Number    
 \end{table}
 
 Ad ogni valore chiave viene assegnato un TTL che viene aggiornato automaticamente ad ogni utilizzo della chiave, meccanismo utile per l'eliminazione dei record che utilizzati meno frequentemente.
+\begin{figure}[!htb]
+	\centering
+		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{./img/arch.png}
+		\caption{Architettura progettata}
 
-\centerline{\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{./img/arch.png}}
-
+		
+\end{figure}
+\cleardoublepage
 \section{Socket.io}
-L'applicazione si deve occupare di notificare gli utenti in prossimota dello stallo di parcheggio che ha cmabiato stato e per far ciò ogni utente, dopo aver completato l'handshake, si registrà nella room web-socket corrispondente al geohash che sta occupando. Appena verrà notificato da parte di una telecamera il cambio di stato di l'applicazione si occuperà di inviare il messaggio nella room corrispndente. Per riuscire a mantenere un modello stateless e nel frattempo gestire i messaggi in modo che tutti gli utenti ricevano l'aggiornamento viene sfruttato il meccanismo di publish/subscribe messo a dispozione da redis, volume di supporto comune, a tutta l'infrastruttura. In caso di \textit{``autoscaling"} ogni istanza ``eb" farà il subscribe su redis, all'arrivo di un agggiornamento l'istanza che verrà contattata effettuerà un publish su redis facendo in modo di notificare tutte le istanze e a sua volta notificare tutti gli utenti.
+L'applicazione si deve occupare di notificare gli utenti in prossimota dello stallo di parcheggio che ha cmabiato stato e per far ciò ogni utente, dopo aver completato l'handshake, si registrà nella room web-socket corrispondente al geohash che sta occupando. Appena verrà notificato da parte di una telecamera il cambio di stato di l'applicazione si occuperà di inviare il messaggio nella room corrispndente. Per riuscire a mantenere un modello stateless e nel frattempo gestire i messaggi in modo che tutti gli utenti ricevano l'aggiornamento viene sfruttato il meccanismo di publish/subscribe messo a dispozione da redis, volume di supporto comune. In caso di \textit{``autoscaling"} ogni istanza ``eb" farà il subscribe su redis, all'arrivo di un agggiornamento l'istanza che verrà contattata effettuerà un publish su redis facendo in modo di notificare tutte le istanze e a sua volta notificare tutti gli utenti.
 
-\vspace{0.5truecm}
 
-\centerline{\includegraphics[width=272px,height=400px]{./img/websocket.png}}
 
+\begin{figure}[!h]
+	\centering 
+		\includegraphics[width=266px,height=340px]{./img/websocket.png}
+		\caption{Caso d'uso websocket con quattro istanze eb}
+\end{figure}
 
 

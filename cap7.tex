@@ -1,2 +1,15 @@
 \chapter{Workflow, testing e tecnologie di supporto}
+Ogni modulo sviluppato in questo progetto ha seguito un iter di validazione che comprende due fasi:
+\begin{enumerate}
+	\item Sviluppo
+	\item Test
+\end{enumerate}
 
+Un aspetto importante della fase di sviluppo è stato l'utilizzo di un ``Control Version System" (cvs) un software di versioning di applicazioni molto utile nel lavoro in team. Il codice sorgente di ogni modulo sviluppato è mantenuto rispettivamente in un repository privato online gestito con ``git", un cvs centralizzato che gestisce tutte le versioni dei file. Ogni sviluppatore del team può scaricare il sorgente e lavorare con una copia in locale e pubblicare le modifiche appena completate. Grazie a questo tipo di software la gestione delle versioni del codice sorgente è semplificata, infatti esiste pure un meccanismo di tag che permette di identificare versioni dell'applicazione assegnando un tag a piacere.
+
+La fase di test invece è stata caratterizzata da due fasi:
+\begin{enumerate}
+	\item Unit test
+	\item HTTP test
+\end{enumerate}
+Per effettuare i test sono stati usati ``nodeunit" per lo unit test e ``supertest" per i test HTTP, entrambi moduli per nodejs permettonno di verificare che l'applicazione si comporti nel modo aspettato. La fase di unit test si occupa di verificare il che l'output delle funzioni sviluppate sia sempre corretto mentre invece la fase di test Http si occupa di verificare che l'applicazione risponda alle richieste con i giusti codici Http e i giusti output.
