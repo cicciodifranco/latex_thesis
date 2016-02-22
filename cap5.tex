@@ -2,21 +2,25 @@
 
 
 \section{Classificazione eventi}
-Nell'ambito dell'attività di sviluppo del software di videoanalisi del progetto Parksmart sono stati implementati alcuni algoritmi di riconoscimento di particolari eventi, comprendenti lo stato di occupazione di singoli stalli di parcheggio. Il software cosi prodotto viene eseguito su sistemi embedded dedicati al fine di distribuire la computazione dell'attività di riconoscimento per informare l'utente su quale sia lo stallo di parcheggio libero più vicino. Allo stato attuale la classificazione degli eventi comprende esclusivamente la variazione di stato di uno stallo di parcheggio da libero a occupato e viceversa da occupato a libero, ma saranno successivamente introdotti alre categorie di eventi per ampliare il ventaglio di caratteristiche di prodotto sviluppate dal progetto Parksmart.
-\vspace{5.7truecm}
+Nell'ambito dell'attività di sviluppo del software di video analisi del progetto Park Smart sono stati implementati alcuni algoritmi di riconoscimento di particolari eventi, comprendenti lo stato di occupazione di singoli stalli di parcheggio. 
+
+Il software cosi prodotto viene eseguito su sistemi embedded dedicati al fine di distribuire la computazione dell'attività di riconoscimento per informare l'utente su quale sia lo stallo di parcheggio libero più vicino. 
+
+Allo stato attuale la classificazione degli eventi comprende esclusivamente la variazione di stato di uno stallo di parcheggio da libero a occupato e viceversa da occupato a libero, ma saranno successivamente introdotti altre categorie di eventi per ampliare il ventaglio di caratteristiche di prodotto sviluppate dal progetto Park Smart.
+\vspace{7.5truecm}
 
 \section{Database (DynamoDb AWS)}
 Le entità che sono memorizzate nel DBMS in maniera persistente sono telecamere e stalli di parcheggio. Oltre a gli attributi definiti dai requisiti sono stati aggiunti alcuni attributi, membri di indici globali secondari, utili all'amministrazione. Data la tecnologia selezionata (DynamoDb) lo schema progettato ha la seguente struttura:
 
-\vspace{0.5truecm}
+\vspace{1.2truecm}
 
 \centerline{\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{./img/database_ps.png}}
 
-\vspace{0.5truecm}
+\vspace{1.6truecm}
 
 \centerline{\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{./img/database_cam.png}}
 
-\vspace{0.5truecm}
+\vspace{1.2truecm}
 
 Le operazioni che sono state implementate sono le seguenti:
 
@@ -43,29 +47,36 @@ L'applicazione in nodejs è composta da due componenti fondamentali:
 	\item Moduli: librerie usate all'interno dell'applicazione.
 	\item Routes: identificatori di risorse esposte all'esterno.
 \end{itemize}
-I moduli di terze parti che sono stai utilizzati comprendono ``Express js" un framework utile per il routing, ``ngeohash" libreria utile per codificare e decodificare dei geohash, ``AWS Sdk" che contiene tutte le librerie necessarie per comunicare con i servizi AWS (Es. DynamoDb), ``node-redis" modulo per eseguire le operazioni in cache e infine ``socket.io"+``socket.io-redis" per notificare gli eventi a gli utenti.
+I moduli di terze parti che sono stai utilizzati comprendono:
+\begin{itemize}
+ 	\item ``Express js" un framework utile per il routing
+	\item ``ngeohash" libreria utile per codificare e decodificare dei geohash
+	\item ``AWS Sdk" che contiene tutte le librerie necessarie per comunicare con i servizi AWS (Es. DynamoDb)
+	\item ``node-Redis" modulo per eseguire le operazioni in cache 
+	\item ``socket.io"+``socket.io-Redis" per notificare gli eventi a gli utenti.
+ \end{itemize}
 E' stato creato un modulo (``psm") ad-hoc per i nostri scopi che comprende i seguenti file:
 \begin{enumerate}
 	\item ParkingSpace.js con le seguenti funzioni ``pubbliche":
 	\begin{itemize}
-			\item updateParkingSpace(idPs, free) : aggiorna lo stato (Free/Busy) di uno specifico stallo di parcheggio.
-			\item getPsByHash(hashSource) : da un geohash in input reperiscono tutti gli stalli di parcheggio che vi appartengono.
-			\item getPsByPosition(latitude, longitude) : data una posizione arbitraria si calcola il geohash e si reperiscono tutti gli stalli che vi appartengono.
-			\item getPsByBounds(latHi, latLo, lngHi, lngLo) : date due coppie coordinate si calcolano tutti i geohash all'interno dell'area e si reperiscono tutti gli stalli che vi appartengono.
+			\item updateParkingSpace(idPs, free): aggiorna lo stato (Free/Busy) di uno specifico stallo di parcheggio.
+			\item getPsByHash(hashSource): da un geohash in input si reperiscono tutti gli stalli di parcheggio che vi appartengono.
+			\item getPsByPosition(latitude, longitude): data una posizione arbitraria si calcola il geohash e si reperiscono tutti gli stalli che vi appartengono.
+			\item getPsByBounds(latHi, latLo, lngHi, lngLo): date due coppie di coordinate si calcolano tutti i geohash all'interno dell'area e si reperiscono tutti gli stalli che vi appartengono.
 		\end{itemize}
 
 	\item Camera.js con le seguenti funzioni ``pubbliche":
 	\begin{itemize}
-			\item getCamsByHash(hashSource) : da un geohash in input reperiscono tutte le videocamere che vi appartengono.
-			\item getCamsByPosition(latitude, longitude) : data una posizione arbitraria viene calcolato il geohash e si reperiscono tutti le videocamere che vi appartengono.
-			\item getCamsByBounds(latHi, latLo, lngHi, lngLo) : date due coppie coordinate si calcolano tutti i geohash all'interno dell'area e si reperiscono tutte le videocamere che vi appartengono.
-			\item getCamsByModel (model) : dato uno specifico modello di videocamera vengono reperite tutte le videocamere di quel modello.
-			\item getCamsByVendor (vendor) : dato un venditore di videocamere si reperiscono tutte le viedeocamere vendute da quel produttore.
+			\item getCamsByHash(hashSource): da un geohash in input si reperiscono tutte le videocamere che vi appartengono.
+			\item getCamsByPosition(latitude, longitude): data una posizione arbitraria viene calcolato il geohash e si reperiscono tutte le videocamere che vi appartengono.
+			\item getCamsByBounds(latHi, latLo, lngHi, lngLo): date due coppie di coordinate si calcolano tutti i geohash all'interno dell'area e si reperiscono tutte le videocamere che vi appartengono.
+			\item getCamsByModel (model): dato uno specifico modello di videocamera vengono reperite tutte le videocamere di quel modello.
+			\item getCamsByVendor (vendor): dato un venditore di videocamere si reperiscono tutte le viedeocamere vendute da quel produttore.
 	\end{itemize}
 
 	\item Websocket.js con le seguenti funzioni ``pubbliche":
 	\begin{itemize}
-		\item sendMessage(channel, message) : invia un messaggio in uno specifica room.
+		\item sendMessage(channel, message): invia un messaggio in una specifica room.
 	\end{itemize}
 \end{enumerate}
 
@@ -151,8 +162,10 @@ exports.ParkingSpace= ParkingSpace();
 
 \end{lstlisting}
 
-\vspace{0.5truecm}
-Ogni utente, per accedere ad una risorsa esposta all'esterno, deve aggiungere nell'``header" della richiesta il token che gli è stato generato da cognito dopo aver effettuato il login. Quest'ultimo viene verificato con il sistema di autenticazione di AWS e infine salvato in cache. Le risorese esposte all'esterno per gli utenti sono le seguenti:
+\vspace{1.5truecm}
+Ogni utente, per accedere ad una risorsa esposta all'esterno, deve aggiungere nell'``header" della richiesta il token che gli è stato generato da cognito dopo aver effettuato il login. Quest'ultimo viene verificato con il sistema di autenticazione di AWS e infine salvato in cache. 
+
+Le risorse esposte all'esterno per gli utenti sono le seguenti:
 
 \lstset{language=HTTP}          
 
@@ -169,7 +182,7 @@ Params:
 
 \end{lstlisting}
 
-\vspace{1truecm}
+\vspace{0.5truecm}
 \begin{lstlisting}[frame=single]
 
 HTTP 1.1 
@@ -182,7 +195,7 @@ Params:
 
 \end{lstlisting}
 
-
+\vspace{0.5truecm}
 \begin{lstlisting}[frame=single]
 
 HTTP 1.1 
@@ -197,10 +210,12 @@ Params:
 }
 
 \end{lstlisting}
-
+\vspace{0.5truecm}
 L'aggiornamento dello stato di occupazione di uno stallo di parcheggio viene effettuato sempre tramite restAPI, in fase di sviluppo le telecamere si stanno autenticando con una ``simple http auth" e di conseguenza ogni telecamera è fornita di username e password. Successivamente verrà usato il meccanismo dei certificati X.509: ogni telecamera sarà fornita di un certificato e sarà presente un database di ceritficati validi.
-Per effettuare l'aggiornamento di uno stallo di parcheggio una telecamera deve effettuare una richiesta HTTP per la seguente risorsa:
 
+
+Per effettuare l'aggiornamento di uno stallo di parcheggio una telecamera deve effettuare una richiesta HTTP per la seguente risorsa:
+\vspace{0.5truecm}
 
 \begin{lstlisting}[frame=single]
 
@@ -214,8 +229,9 @@ Params:
 }
 
 \end{lstlisting}
+\vspace{0.5truecm}
 
-Oltre all'identità della camera verrà verificata la relazione tra la videocamera e il parcheggio che deve eseere aggiornato di stato.
+Oltre all'identità della camera verrà verificata la relazione tra la videocamera e il parcheggio che deve essere aggiornato di stato.
 
 
 
@@ -223,7 +239,7 @@ Oltre all'identità della camera verrà verificata la relazione tra la videocame
 
 
 \section{Redis}
-I vantaggi di usare una cache di supporto comune all'intero ``Auto scaling group" rende la condivisione di informazioni molto più semplice riuscendo cosi a salvare informazioni sullo stato dell'utente (es. ultimo token utilizzato) mantenendo comunque un modello stateless per l'applicazione. Per la strutturazione dei dati all'interno di redis viene sfruttata la funzione del ``path matching" cioè la possibilità di effettuare ricerche di chiavi con espressioni regolari. Uno stallo di parcheggio sarà memorizzato nel seguente modo:
+I vantaggi di usare una cache di supporto comune all'intero \begin{hyphenrules}{nohyphenation}``Auto scaling group"\end{hyphenrules} rende la condivisione di informazioni molto più semplice riuscendo cosi a salvare informazioni sullo stato dell'utente (es. ultimo token utilizzato) mantenendo comunque un modello stateless per l'applicazione. Per la strutturazione dei dati all'interno di Redis viene sfruttata la funzione del ``path matching" cioè la possibilità di effettuare ricerche di chiavi con espressioni regolari. Uno stallo di parcheggio sarà memorizzato nel seguente modo:
 \begin{quotation}
 \textit{``geohash:idstallo"}
 \end{quotation}
@@ -240,7 +256,7 @@ Le informazioni che vengono salvate sono le seguenti:
 
 \begin{table}[htb]
 \centering
-\caption{Informazioni memorizzate su redis}
+\caption{Informazioni memorizzate su Redis}
 \label{my-label}
 \begin{tabular}{|l|l|l|l|}
 \hline
@@ -250,7 +266,7 @@ Token cognito        & idcognito:token  & TTL (AWS)                 & Number    
 \end{tabular}
 \end{table}
 
-Ad ogni valore chiave viene assegnato un TTL che viene aggiornato automaticamente ad ogni utilizzo della chiave, meccanismo utile per l'eliminazione dei record che utilizzati meno frequentemente.
+Ad ogni valore chiave viene assegnato un TTL che viene aggiornato automaticamente ad ogni utilizzo della chiave, meccanismo utile per l'eliminazione dei record utilizzati meno frequentemente.
 \begin{figure}[!htb]
 	\centering
 		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{./img/arch.png}
@@ -260,14 +276,18 @@ Ad ogni valore chiave viene assegnato un TTL che viene aggiornato automaticament
 \end{figure}
 \cleardoublepage
 \section{Socket.io}
-L'applicazione si deve occupare di notificare gli utenti in prossimota dello stallo di parcheggio che ha cmabiato stato e per far ciò ogni utente, dopo aver completato l'handshake, si registrà nella room web-socket corrispondente al geohash che sta occupando. Appena verrà notificato da parte di una telecamera il cambio di stato di l'applicazione si occuperà di inviare il messaggio nella room corrispndente. Per riuscire a mantenere un modello stateless e nel frattempo gestire i messaggi in modo che tutti gli utenti ricevano l'aggiornamento viene sfruttato il meccanismo di publish/subscribe messo a dispozione da redis, volume di supporto comune. In caso di \textit{``autoscaling"} ogni istanza ``eb" farà il subscribe su redis, all'arrivo di un agggiornamento l'istanza che verrà contattata effettuerà un publish su redis facendo in modo di notificare tutte le istanze e a sua volta notificare tutti gli utenti.
+L'applicazione si deve occupare di notificare gli utenti in prossimità dello stallo di parcheggio che ha cambiato stato e per far ciò ogni utente, dopo aver completato l'handshake, si registra nella room web-socket corrispondente al geohash che sta occupando. 
+
+Appena verrà notificato da parte di una telecamera il cambio di stato, l'applicazione si occuperà di inviare il messaggio nella room corrispondente. 
+
+Per riuscire a mantenere un modello stateless e nel frattempo gestire i messaggi in modo che tutti gli utenti ricevano l'aggiornamento viene sfruttato il meccanismo di Publish/Subscribe messo a disposizione da Redis, volume di supporto comune. In caso di \textit{``autoscaling"} ogni istanza ``EB" farà il subscribe su Redis, all'arrivo di un aggiornamento l'istanza che verrà contattata effettuerà un publish su Redis facendo in modo di notificare tutte le istanze e a sua volta notificare tutti gli utenti.
 
 
 
 \begin{figure}[!h]
 	\centering 
 		\includegraphics[width=266px,height=340px]{./img/websocket.png}
-		\caption{Caso d'uso websocket con quattro istanze eb}
+		\caption{Caso d'uso Web Socket con quattro istanze EB}
 \end{figure}
 
 
