@@ -1,39 +1,45 @@
 \chapter{Tecnologie}
 
-Per portare a termine il progetto sono state valutate diverse tecnologie, e in particolare uno degli obbiettivi che ha influenzato l'analisi delle stesse è satto evitare o ridurre al minimo il ``provisoning",  cioè quel processo in cui un amministartore di sitema configura l'ambiente di lavoro/sviluppo e assegna risorse e permessi a gli utenti. Con le tencologie proposte da AWS questa particolare fase di configuarezione iniziale è molto ridotta e a volte assente. Per questo motivo circa il 90\% delle tecnologie sono ospitate da AWS di cui circa la metà completamente propietaria AWS.
+Per portare a termine il progetto sono state valutate diverse tecnologie, e in particolare uno degli obiettivi che ha influenzato l'analisi delle stesse è stato evitare o ridurre al minimo il ``provisioning",  cioè quel processo in cui un amministratore di sistema configura l'ambiente di lavoro/sviluppo e assegna risorse e permessi agli utenti. Con le tecnologie proposte da AWS questa particolare fase di configurazione iniziale è molto ridotta e, a volte, assente. Per questo motivo circa il 90\% delle tecnologie utilizzate sono fornite da AWS, di queste circa la metà sono tecnologie proprietarie di AWS.
 
 
 \section{Analisi comparativa}
-Le tecnlogie che sono state analizzate abbracciano tre categorie di software:
+Le tecnologie che sono state analizzate abbracciano tre categorie di software:
 \begin{enumerate}
 	\item Basi di dati
-	\item Server side framework
-	\item Web socket
+	\item Server Side Framework
+	\item Web Socket
 \end{enumerate}
 
 \subsection{Basi di dati}
-Tra le tecnologie moderne possiamo trovare diverse soluzioni per la memorizzazione persistente di informazoini in un base dati e molte di queste, rispetto al classico approccio relazionale in cui ogni entità deve avere uno schema ben definito, offrono diversi vantaggi come:
+Tra le tecnologie moderne possiamo trovare diverse soluzioni per la memorizzazione persistente di informazioni in un base dati e molte di queste, rispetto al classico approccio relazionale in cui ogni entità deve avere uno schema ben definito, offrono diversi vantaggi come:
 \begin{itemize}
 	\item Struttura ``schema less"
 	\item Possibilità di esecuzione su un ambiente distribuito
 	\item Possibilità di referenziare/includere altre entità
 \end{itemize}
-Questa categoria di database viene denominata ``Not only SQL" (NoSql), e tali sistemi si distunguono appunto dal modello classico per la loro flessibilità, scalabilità e alta resa in termini di presatzioni; requisiti che oggi sono reputati fondamentali per applicazioni enterprise.
+Questa categoria di database viene denominata ``Not only SQL" (NoSql), e tali sistemi si distinguono appunto dal modello classico per la loro flessibilità, scalabilità e alta resa in termini di prestazioni; requisiti che oggi sono reputati fondamentali per applicazioni di classe Enterprise.
 Le tecnologie di DBMS prese in esame per questo progetto sono due e in particolare verranno analizzati DynamoDb di AWS e MongoDb di MongoDb Inc. 
 \subsubsection*{DynamoDb}
-DynamoDb è una soluzione enterprise completamente sviluppata e ospitata da AWS e questo rappresenta uno dei suoi principali vantaggi, infatti offre la possibilità di gestire le prestazioni e le risorse allocate in modo semplice da un pannello di controllo dedicato. DyanamoDb è schema less il che vuol dire che non esistono limiti sul numero di attributi che un record può avere e indipendentemente dagli altri ognuono può avare un numero arbitrario di attributi ad eccezzione di una chiave che deve essere univoca e presente per ogni record. DynamoDb supporta due tipologie di chiavi
-\begin{itemize}
-	\item Partition key (Hash key): tale chiave ha la funzione di una chiave primaria e prende il nome di hash key poichè serve de input ad una funzione hash (interna ad AWS) che calcola la posizione (partizione) dove il record è memorizzato.
+DynamoDb è una soluzione enterprise completamente sviluppata e ospitata da AWS e questo rappresenta uno dei suoi principali vantaggi, infatti offre la possibilità di gestire le prestazioni e le risorse allocate in modo semplice da un pannello di controllo dedicato. 
 
-	\item Partition key and sort key (Hash and range key): è una chiave primaria composta da due attributi, la prima è la partition key e la seconda, sort key, viene usata come chiave di ordinamento. Tutti i record con la stessa partition key saranno ordinati secondo la sort key. 
+DyanamoDb è ``schema less" il che vuol dire che non esistono limiti sul numero di attributi che un record può avere e, indipendentemente dagli altri, ognuno può avare un numero arbitrario di attributi ad eccezione di una chiave che deve essere univoca e presente per ogni record. 
+
+DynamoDb supporta due tipologie di chiavi:
+\begin{itemize}
+	\item Partition key (Hash key): tale chiave ha la funzione di una chiave primaria e prende il nome di hash key poiché serve da input ad una funzione hash (interna ad AWS) che calcola la posizione (partizione) dove il record è memorizzato.
+
+	\item Partition key and sort key (Hash and range key): è una chiave primaria composta da due attributi, la prima è la partition key e la seconda, sort key, viene usata come chiave di ordinamento. 
+	Tutti i record con la stessa partition key saranno ordinati secondo la sort key. 
 \end{itemize}
+
  Per facilitare le ricerche DynamoDb offre la possibilità di definire per ogni tabella ulteriori indici e in particolare:
 
 \begin{itemize}
 	\item 5 indici globali secondari (global secondary index)
 	\item 5 indici locali secondari (local secondary index)
 \end{itemize}
-DynamoDb è un DBMS pensato per essere performante e altamente scalabile perciò non offre alcun tipo di referenziamento con altre tabelle e di conseguenza tutte le operazione ad esse correllate come join o transazioni.
+DynamoDb è un DBMS pensato per essere performante e altamente scalabile perciò non offre alcun tipo di referenziamento con altre tabelle e di conseguenza tutte le operazione ad esse correlate come join o transazioni.
 Le operazioni che si possono effettuare con DynamoDb sono le seguenti:
 \begin{itemize}
 	\item GetItem : data la primary key (Hash) viene reperito il record corrispondente.
@@ -46,12 +52,14 @@ Le operazioni che si possono effettuare con DynamoDb sono le seguenti:
 \end{itemize}  
 
 \subsubsection*{MongoDb}
-MongoDb è un DBMS molto utilizzato e memorizza i dati secondo il modello a documento. Anch'esso è schema less ed è stato pensato per applicazioni in continua evoluzione. Completamente gratuito deve essere ospitato da un provider di terze parti e di conseguenza le prestazioni dipendono dall'ambiente in cui è eseguito. MongoDb offre sia la possibilità di refernziare sia la possibilità di includere altre entità (documenti). Come altri DBMS nella categoria NoSql anche Mongo può essere eseguito su un ambiente distribuito per favorirne prestazioni e scalabilità. Ogni documento in una collezzione è identificato da un id univoco, tale id oltre che essere fondamentale per l'engine di mongo è molto utile per refernziare altri documenti o effettuare query complesse.
+MongoDb è un DBMS molto utilizzato e memorizza i dati secondo il modello a documento. Anch'esso è schema less ed è stato pensato per applicazioni in continua evoluzione. Completamente gratuito, deve essere ospitato da un provider di terze parti e di conseguenza le prestazioni dipendono dall'ambiente in cui è eseguito. 
+MongoDb offre sia la possibilità di referenziare sia la possibilità di includere altre entità (documenti). 
+Come altri DBMS nella categoria NoSql anche Mongo può essere eseguito su un ambiente distribuito per favorirne prestazioni e scalabilità. Ogni documento in una collezione è identificato da un id univoco, tale id oltre che essere fondamentale per l'engine di Mongo è molto utile per referenziare altri documenti o effettuare query complesse.
 Diversamente da altri DBMS NoSql offre diverse tipologie di indici:
 \begin{itemize}
-	\item Indici secondari: utili a rendere performanati le ricerche
+	\item Indici secondari: utili a rendere performanti le ricerche
 	\item Indici geospaziali: utili per calcolare distanze tra coordinate geospaziali
-	\item Indici geohaystack: possono essere usatecome gli indici geospaziali ma permettono solo interrogazioni su superfici piane, dando prestazioni più elevate
+	\item Indici geohaystack: possono essere usate come gli indici geospaziali ma permettono solo interrogazioni su superfici piane, dando prestazioni più elevate
 	\item Indici testuali: permettono ricerche full-text
 \end{itemize} 
 MongoDb è una tecnologia molto usata e 
@@ -84,7 +92,9 @@ Per favorire l'interoperabilità tra diverse applicazioni, eseguite in diverse p
 \begin{quotation}
 \textit{A Web service is a software system designed to support interoperable machine-to-machine interaction over a network. It has an interface described in a machine-processable format (specifically WSDL). Other systems interact with the Web service in a manner prescribed by its description using SOAP messages, typically conveyed using HTTP with an XML serialization in conjunction with other Web-related standards.}
 \end{quotation}
-Tale architettura, definita come delle linee guida dal W3C, ha portato a quello che oggi è nota come architettura ``Representational State Transfer" (REST), introdotta per la prima volta nel 2000 da Roy Fielding. L'architettura REST si basa su un concetto fondamentale che è la risorsa (informazione) identificata da un URI. Ogni sistema software che vuole implementare l'architettura REST deve seguire le seguenti regole:
+Tale architettura, definita come delle linee guida dal W3C, ha portato a quello che oggi è nota come architettura ``Representational State Transfer" (REST), introdotta per la prima volta nel 2000 da Roy Fielding. 
+
+L'architettura REST si basa su un concetto fondamentale che è la risorsa (informazione) identificata da un URI. Ogni sistema software che vuole implementare l'architettura REST deve seguire le seguenti regole:
 \begin{itemize}
 	\item Client-server: Netta separazione dei ruoli tra client e server.
 	\item Stateless: Nessuna informazione sullo stato del client deve essere salvata eliminando il vincolo di dover contattare sempre lo stesso server.
@@ -100,7 +110,9 @@ Attualmente esistono molti framework che permettono di implementare l'architettu
 \end{itemize}
 In questo elaborato verrano prese in esame solo NodeJs e Laravel.
 \subsubsection{NodeJS (Google event-driven javascript framework)}
-Anche se javascript è nato come un linguaggio che doveva essere eseguito solo all'interno di un browser con lo sviluppo della versione 8 dell'interprete javascript di Chrome, noto browser di Google, le performance sono notevolmente migliorate al punto che sono nati framework server-side come NodeJs. NodeJs è un ``event-driven" framework che grazie alla natura asincrona di javascript riesce ad implementare in maniera soddisfacente il modello ``non-blocking I/O". Pensato per costruire applicazioni scalabili riesce a gestire numerose richeste simultaneamente e corredato di ``packet manager" gode della più grande libreria di moduli (relativi al framework) open-source del web.
+Anche se javascript è nato come un linguaggio che doveva essere eseguito solo all'interno di un browser con lo sviluppo della versione 8 dell'interprete javascript di Chrome, noto browser di Google, le performance sono notevolmente migliorate al punto che sono nati framework server-side come NodeJs. 
+
+NodeJs è un ``event-driven" framework che grazie alla natura asincrona di javascript riesce ad implementare in maniera soddisfacente il modello ``non-blocking I/O". Pensato per costruire applicazioni scalabili riesce a gestire numerose richeste simultaneamente e corredato di ``packet manager"; gode della più grande libreria di moduli (relativi al framework) open-source del web.
 
 
 \subsubsection{Laravel PHP}
@@ -111,35 +123,41 @@ Laravel è un framework PHP object oriented che si basa sull'architettura ``Mode
 
 \end{itemize}
 \section{Tecnologie selezionate}
-Per lo sviluppo di questo progetto sono stati selezionati DynamoDb e NodeJs. DynamoDb poichè completamente ospitato e altamente scalabile e performante.
-NodeJs invece per la sua natura non bloccante e basato sul modello ad eventi. Oltre alle tecnologie appena esamaminate sono state usate anche:
+Per lo sviluppo di questo progetto sono stati selezionati DynamoDb e NodeJs. DynamoDb poiché fornito da AWS, utilizzabile direttamente mediante RestFul API, senza preoccuparsi della gestione sistemistica del Data Base; è altamente scalabile e performante.
+NodeJs invece per la sua natura non bloccante e perché basato sul modello ad eventi. Oltre alle tecnologie appena esaminate sono state usate anche:
 \begin{itemize}
-	\item Elastic beanstalk: servizio AWS, basato su docker (container virtuali), permette scalabilità e ``continuos deploy". 
+	\item Elastic Beanstalk: servizio AWS, basato su docker (container virtuali), permette scalabilità e ``continuos deploy". 
 	\item Redis: all-in-memory key-value database, utilizzato come cache per i dati più richiesti.
 	%\item AWS IoT: sistema di gestione per IoT basato sul protocollo MQTT.
 \end{itemize}
 
 
-\subsection{Elastic beanstalk}
-Elasitic beanstalk è un servizio SaaS di AWS basato sulla tecnologia introdotta da ``Docker Inc." di virtualizzazione denominata ``container". Tale tecnologia ottimizza il concetto di virtualizzazione sfruttando lo stesso principio di isolamento delle risorse che viene usato per le macchine virtuali ma utilizza un approccio architetturale molto diverso: 
+\subsection{Elastic Beanstalk}
+Elastic Beanstalk è un servizio SaaS di AWS basato sulla tecnologia introdotta da ``Docker Inc." di virtualizzazione denominata ``container". Tale tecnologia ottimizza il concetto di virtualizzazione sfruttando lo stesso principio di isolamento delle risorse che viene usato per le macchine virtuali ma utilizza un approccio architetturale molto diverso: 
 
-un container è un ambiente virtualizzato isolato per un'applicazione e include tutte le dipendeze necessarie all'esecuzione della stessa ma condivide il kernel con il resto dei container. Questa tecnologia, a differenza delle macchine virtuali, virtualizza solo l'applicazione e permette quindi di sfruttare al meglio la memoria offrendo una scalabilità orizzontale più efficente.
+un container è un ambiente virtualizzato isolato per un'applicazione e include tutte le dipendenze necessarie all'esecuzione della stessa ma condivide il kernel con il resto dei container. 
 
-ELastic benastalk integra questa tecnologia con numerevoli feature di contorno: 
+Questa tecnologia, a differenza delle macchine virtuali tradizionali, virtualizza solo l'applicazione e permette quindi di sfruttare al meglio la memoria offrendo una scalabilità orizzontale più efficiente.
+
+Elastic Beanstalk integra questa tecnologia con numerose feature di contorno: 
 \begin{itemize}
 	\item Deploy rapido tramite ``command line".
-	\item Versioning dell'applicazione trasparente grazie al collegamento del container ad un repository gestito con un control version system (CVS).
+	\item Versioning dell'applicazione trasparente grazie al collegamento del container ad un repository gestito con un  version control system (VCS).
+%% Commento per spiegare che CVS sta per Concurrent Version System ed è uno dei tanti VCS in circolazione. Probabilmente AWS usa GIT o SVN  come VCS ;)
+
 	\item Scalabilità gestita in un paio di click: le istanze virtualizzate possono essere aumentate o diminuite secondo semplici regole.
-	\item Permette lo swap tra container rendendo i deploy trasaprenti dall'esterno riducendo i downtime tra una versione e un'altra.
+	\item Permette lo swap tra container rendendo i deploy trasparenti, visti dall'esterno, riducendo i downtime tra una versione e un'altra.
 \end{itemize}
 
 \subsection{Redis (All in-memory key-value DB)}
-Redis è una tecnologia di datatbase NoSql denominato ``key/value store", risiede completamente in memoria Ram con persistenza su disco facoltativa. Le principali peculiarità di Redis sono:
+Redis è una tecnologia di database NoSql denominato ``key/value store"; risiede completamente in memoria Ram con persistenza su disco facoltativa. Le principali peculiarità di Redis sono:
 \begin{itemize}
 	\item Possibilità di esecuzione in ambiente distribuito
-	\item Ad ogni chiave può essere assegnato un ``Time To Live" (TTL), utile se redis viene utilizzato come LRU cache.
-	\item Meccanismo di publish/subscribe utile per la consistenza dei dati in ambienti distribuiti.
-	\item Si possono eseguire transazioni: una sequenza di istruzioni che non varrà interrotta.
+	\item Ad ogni chiave può essere assegnato un ``Time To Live" (TTL), utile se Redis viene utilizzato come LRU cache.
+	\item Meccanismo di Publish/Subscribe utile per la consistenza dei dati in ambienti distribuiti.
+	\item Si possono eseguire transazioni: una sequenza di istruzioni che non verrà interrotta.
+%% Intendi transazioni atomiche? cioè se dovesse avvenire una interruzione inaspettata (i.e: caduta di rete?) fa il rollback dell'operazione in modo da mantenere consistente il DB?
+	
 \end{itemize}
 Le strutture supportate da redis sono:
 \begin{enumerate}
