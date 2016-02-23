@@ -1,25 +1,32 @@
-\chapter{Workflow, Testing e tecnologie di supporto}
-Ogni modulo sviluppato in questo progetto ha seguito un iter di validazione che comprende due fasi:
-\begin{enumerate}
-	\item sviluppo;
-	\item test.
-\end{enumerate}
+\chapter{Conclusioni e sviluppi futuri}
 
-Un aspetto importante della fase di sviluppo è stato l'utilizzo di un ``Version Control System" (VCS) un software di versioning di applicazioni molto utile nel lavoro in team. 
 
-Il codice sorgente di ogni modulo sviluppato è mantenuto rispettivamente in un repository privato online gestito con ``Git", un vcs distribuito che gestisce tutte le versioni dei file. 
+Con lo sviluppo di questo progetto è stato creato un prototipo applicativo completo per la gestione real-time dell'occupazione degli stalli di parcheggio monitorati. 
 
-Ogni sviluppatore del team può scaricare il sorgente e lavorare con una copia in locale e pubblicare le modifiche appena completate. 
-
-Grazie a questo tipo di software la gestione delle versioni del codice sorgente è semplificata, infatti esiste pure un meccanismo di tag che permette di identificare versioni dell'applicazione assegnando un tag a piacere.
+Tale applicativo è tuttora in fase di evoluzione poiché si stanno valutando nuove tecnologie proposte da AWS in merito alla gestione della comunicazione tra i sistemi embedded e l'architettura Cloud Park Smart. 
 \newline
 
-La fase di test invece è stata caratterizzata da due fasi:
-\begin{enumerate}
-	\item Unit test;
-	\item HTTP test.
-\end{enumerate}
+L'analisi dei requisiti è servita a tracciare le linee guida dello sviluppo e a tal proposito si è applicata una metodologia elastica di sviluppo del software, incentrata sul raggiungimento delle ``feature" di prodotto, con una ciclicità nella ridefinizione dell'architettura complessiva del sistema.
 
-Per effettuare i test sono stati usati ``nodeunit" per lo unit test e ``supertest" per i test HTTP, entrambi moduli per nodejs che permettono di verificare che l'applicazione si comporti nel modo atteso. 
+A tal proposito, i principi fondamentali della metodologia Agile sono stati di vitale importanza nella gestione complessiva del progetto.
+In tal modo si è stati pronti a rispondere ai cambiamenti oltre che all'aderire alla pianificazione, modificando le priorità di lavoro nel rispetto dell'obiettivo finale \footnote{\href{http://www.agilemanifesto.org}{Agile Manifesto}}.
+Attualmente il software prodotto è impiegato attivamente all'interno del progetto Park Smart.	
+\newline
 
-La fase di unit test si occupa di verificare che l'output delle funzioni sviluppate sia sempre corretto mentre invece la fase di test Http si occupa di verificare che l'applicazione risponda alle richieste HTTP in modo corretto.
+Allo stato attuale il progetto Park Smart è ancora in fase di sviluppo e si stanno valutando nuove tecnologie per ampliare le ``feature" di prodotto e migliorare la \textit{user experience}. 
+
+Attualmente si sta sviluppando il modulo per la comunicazione delle videocamere tramite MQTT autenticate con il Cloud ParkSmart con un certificato digitale X.509.
+\newline
+
+Verrà prodotta una dashboard web, con molteplici funzionalità collegate al cloud ParkSmart, dalla quale si potranno gestire tutte le informazioni su:
+\begin{itemize}
+	\item Telecamere;
+	\item Stalli di parcheggio;
+	\item Partner aziendali;
+	\item Partner tecnici;
+	\item Impianti installati;
+\end{itemize}
+
+
+Inoltre saranno previste funzionalità di monitoraggio per verificare lo stato degli impianti installati.
+
