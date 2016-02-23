@@ -72,7 +72,7 @@ E' stato creato un modulo (``psm") ad-hoc per i nostri scopi che comprende i seg
 	\begin{itemize}
 			\item updateParkingSpace(idPs, free): aggiorna lo stato (Free/Busy) di uno specifico stallo di parcheggio;
 			\item getPsByHash(hashSource): da un geohash in input si reperiscono tutti gli stalli di parcheggio che vi appartengono;
-			\item getPsByPosition(latitude, longitude): data una posizione arbitraria si calcola il geohash e si reperiscono tutti gli stalli che vi appartengono;
+			\item getPsByPosition(latitude, longitude): data una posizione arbitraria si calcola il geohash e gli otto vicini e si reperiscono tutti gli stalli che vi appartengono;
 			\item getPsByBounds(latHi, latLo, lngHi, lngLo): date due coppie di coordinate si calcolano tutti i geohash all'interno dell'area e si reperiscono tutti gli stalli che vi appartengono.
 		\end{itemize}
 
