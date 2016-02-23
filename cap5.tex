@@ -37,15 +37,15 @@ Le operazioni che sono state implementate sono le seguenti:
 
 
 \begin{itemize}
-	\item Aggiornamento dello stato (Free/Busy) di uno specifico stallo di parcheggio.
-	\item Richiesta di stalli di parcheggio di un geohash: da un geohash in input reperiscono tutti gli stalli di parcheggio che vi appartengono.
-	\item Richiesta di stalli di parcheggio a partire da una posizione : data una posizione arbitraria si calcola il geohash e si reperiscono tutti gli stalli che vi appartengono.
-	\item Richiesta di stalli di parcheggio a partire da un area geografica delimitata da una coppia di coordinate : date due coppie coordinate si calcolano tutti i geohash all'interno dell'area e si reperiscono tutti gli stalli che vi appartengono.
-	\item Richiesta di videocamere a partire da un geohash : da un geohash in input reperiscono tutte le videocamere che vi appartengono.
-	\item Richiesta di videocamere a partire da una posizione : data una posizione arbitraria viene calcolato il geohash e si reperiscono tutti le videocamere che vi appartengono.
-	\item Richiesta di videocamere a partire da un area geografica delimitata da una coppia di coordinate : date due coppie coordinate si calcolano tutti i geohash all'interno dell'area e si reperiscono tutte le videocamere che vi appartengono.
-	\item Richiesta di videocamere per modello : dato uno specifico modello di videocamera vengono reperite tutte le videocamere di quel modello.
-	\item Richiesta di viedocamere per produttore : dato un produttore di videocamere si reperiscono tutte le viedeocamere vendute da quel produttore.
+	\item aggiornamento dello stato (Free/Busy) di uno specifico stallo di parcheggio;
+	\item richiesta di stalli di parcheggio di un geohash: da un geohash in input reperiscono tutti gli stalli di parcheggio che vi appartengono;
+	\item richiesta di stalli di parcheggio a partire da una posizione : data una posizione arbitraria si calcola il geohash e si reperiscono tutti gli stalli che vi appartengono;
+	\item richiesta di stalli di parcheggio a partire da un area geografica delimitata da una coppia di coordinate : date due coppie coordinate si calcolano tutti i geohash all'interno dell'area e si reperiscono tutti gli stalli che vi appartengono;
+	\item richiesta di videocamere a partire da un geohash : da un geohash in input reperiscono tutte le videocamere che vi appartengono;
+	\item richiesta di videocamere a partire da una posizione : data una posizione arbitraria viene calcolato il geohash e si reperiscono tutti le videocamere che vi appartengono;
+	\item richiesta di videocamere a partire da un area geografica delimitata da una coppia di coordinate : date due coppie coordinate si calcolano tutti i geohash all'interno dell'area e si reperiscono tutte le videocamere che vi appartengono;
+	\item richiesta di videocamere per modello : dato uno specifico modello di videocamera vengono reperite tutte le videocamere di quel modello;
+	\item richiesta di viedocamere per produttore : dato un produttore di videocamere si reperiscono tutte le viedeocamere vendute da quel produttore.
 \end{itemize}
 
 Date le operazioni appena descritte quelle che saranno utilizzate nell'architettura di interesse sono solo quelle relative a gli stalli di parcheggio.
@@ -55,33 +55,33 @@ Date le operazioni appena descritte quelle che saranno utilizzate nell'architett
 \section{NodeJs}
 L'applicazione in nodejs è composta da due componenti fondamentali:
 \begin{itemize}
-	\item Moduli: librerie usate all'interno dell'applicazione.
-	\item Routes: identificatori di risorse esposte all'esterno.
+	\item moduli: librerie usate all'interno dell'applicazione;
+	\item routes: identificatori di risorse esposte all'esterno.
 \end{itemize}
 I moduli di terze parti che sono stai utilizzati comprendono:
 \begin{itemize}
- 	\item ``Express js" un framework utile per il routing
-	\item ``ngeohash" libreria utile per codificare e decodificare dei geohash
-	\item ``AWS Sdk" che contiene tutte le librerie necessarie per comunicare con i servizi AWS (Es. DynamoDb)
-	\item ``node-Redis" modulo per eseguire le operazioni in cache 
+ 	\item ``Express js" un framework utile per il routing;
+	\item ``ngeohash" libreria utile per codificare e decodificare dei geohash;
+	\item ``AWS Sdk" che contiene tutte le librerie necessarie per comunicare con i servizi AWS (Es. DynamoDb);
+	\item ``node-Redis" modulo per eseguire le operazioni in cache;
 	\item ``socket.io"+``socket.io-Redis" per notificare gli eventi a gli utenti.
  \end{itemize}
 E' stato creato un modulo (``psm") ad-hoc per i nostri scopi che comprende i seguenti file:
 \begin{enumerate}
 	\item ParkingSpace.js con le seguenti funzioni ``pubbliche":
 	\begin{itemize}
-			\item updateParkingSpace(idPs, free): aggiorna lo stato (Free/Busy) di uno specifico stallo di parcheggio.
-			\item getPsByHash(hashSource): da un geohash in input si reperiscono tutti gli stalli di parcheggio che vi appartengono.
-			\item getPsByPosition(latitude, longitude): data una posizione arbitraria si calcola il geohash e si reperiscono tutti gli stalli che vi appartengono.
+			\item updateParkingSpace(idPs, free): aggiorna lo stato (Free/Busy) di uno specifico stallo di parcheggio;
+			\item getPsByHash(hashSource): da un geohash in input si reperiscono tutti gli stalli di parcheggio che vi appartengono;
+			\item getPsByPosition(latitude, longitude): data una posizione arbitraria si calcola il geohash e si reperiscono tutti gli stalli che vi appartengono;
 			\item getPsByBounds(latHi, latLo, lngHi, lngLo): date due coppie di coordinate si calcolano tutti i geohash all'interno dell'area e si reperiscono tutti gli stalli che vi appartengono.
 		\end{itemize}
 
 	\item Camera.js con le seguenti funzioni ``pubbliche":
 	\begin{itemize}
-			\item getCamsByHash(hashSource): da un geohash in input si reperiscono tutte le videocamere che vi appartengono.
-			\item getCamsByPosition(latitude, longitude): data una posizione arbitraria viene calcolato il geohash e si reperiscono tutte le videocamere che vi appartengono.
-			\item getCamsByBounds(latHi, latLo, lngHi, lngLo): date due coppie di coordinate si calcolano tutti i geohash all'interno dell'area e si reperiscono tutte le videocamere che vi appartengono.
-			\item getCamsByModel (model): dato uno specifico modello di videocamera vengono reperite tutte le videocamere di quel modello.
+			\item getCamsByHash(hashSource): da un geohash in input si reperiscono tutte le videocamere che vi appartengono;
+			\item getCamsByPosition(latitude, longitude): data una posizione arbitraria viene calcolato il geohash e si reperiscono tutte le videocamere che vi appartengono;
+			\item getCamsByBounds(latHi, latLo, lngHi, lngLo): date due coppie di coordinate si calcolano tutti i geohash all'interno dell'area e si reperiscono tutte le videocamere che vi appartengono;
+			\item getCamsByModel (model): dato uno specifico modello di videocamera vengono reperite tutte le videocamere di quel modello;
 			\item getCamsByVendor (vendor): dato un venditore di videocamere si reperiscono tutte le viedeocamere vendute da quel produttore.
 	\end{itemize}
 
