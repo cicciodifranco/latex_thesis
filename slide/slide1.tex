@@ -14,7 +14,7 @@
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
 
-\title[Relazione progetto finale]{Sistema cloud base per la gestione real-time di eventi geolocalizzati}
+\title[Relazione progetto finale]{Sistema cloud based per la gestione real-time di eventi geolocalizzati}
 
 \author{Francesco Di Franco} % Your name
 \institute[UniCT] 
@@ -43,6 +43,7 @@ Univerist\`a degli studi di Catania \\ % Your institution for the title page
 %SLIDE 2
 \begin{frame}
 \frametitle{Park Smart}
+Parksmart 
 \begin{itemize}
 \item Software di videoanalisi
 \item Sistema software per la gestione real-time di eventi
@@ -75,7 +76,7 @@ Per lo sviluppo di questo progetto sono state usate le tecnologie cloud di Amazo
 %SLIDE 4
 
 \begin{frame}
-\frametitle{Coponenti sistema real time}
+\frametitle{Componenti sistema real time}
 \begin{block}{NodeJs}
 Un framework Javascript a eventi che estende l'architettura REST (Http). 
 \end{block}
@@ -89,9 +90,38 @@ Libreria molto flessibile che implementa web-socket.
 \end{block}
 
 \begin{block}{Redis}
-Tecnologia di DBMS NoSql, All in memory key-value store usata come cache di supporto.
+Tecnologia di DBMS NoSql, all in memory key-value store usata come cache di supporto.
 \end{block}
 \end{frame}
+
+
+
+
+
+\begin{frame}
+\frametitle{Autenticazione}
+\centerline{\includegraphics[scale=0.5]{../img/mobile_auth.png}}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Container e load balancing}
+\centerline{\includegraphics[scale=0.5]{../img/elastic.png}}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Cache hit/miss}
+\centerline{\includegraphics[scale=0.5]{../img/DataFetch.png}}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Websocket notification}
+\centerline{\includegraphics[scale=0.5]{../img/pub_sub.png}}
+\end{frame}
+
 
 
 

@@ -69,68 +69,9 @@
 
 \begin{document}
 \include{frontespizio}
+\newpage\null\thispagestyle{empty}\newpage
+\tableofcontents
 
-
-
-
-
-\chapter*{Indice}
-
-\addcontentsline{toc}{chapter}{Indice}
-\chaptermark{Indice}
-
-\large
-\begin{enumerate}[label*=\arabic*.]
-\item Introduzione %1
-
-\item Obiettivi %2
-\begin{enumerate}[label*=\arabic*.]
-	\item Problematiche affrontate %2.1
-	
-\end{enumerate}
-
-\item Requisiti %3
-\begin{enumerate}[label*=\arabic*.]
-	\item Scalabilit\`a delle risorse %3.1
-	\item Ottimizzazione dell' I/O sul DB e gestione della cache %3.2
-	\item Notifica utenti %3.3
-\end{enumerate}
-
-\item Tecnologie %4
-\begin{enumerate}[label*=\arabic*.]
-	\item Analisi comparativa %4.1
-	\begin{enumerate}[label*=\arabic*.]
-		\item Basi di dati %4.1.1
-		\item Web services e Server Side Framework %4.1.2
-	\end{enumerate}
-
-	\item Tecnologie selezionate %4.2
-	\begin{enumerate}[label*=\arabic*.]
-		\item AWS: Elastic Beanstalk %4.2.1
-		\item AWS: Redis  (All in-memory key-value DB)%4.2.2
-	\end{enumerate}
-\end{enumerate}
-
-\item Progettazione del software %5
-\begin{enumerate}[label*=\arabic*.]
-	\item Classificazione eventi %5.1i
-	\item Database (AWS: DynamoDB)
-	\item NodeJs 
-	\item Redis
-	\item Socket.io (Web socket)
-	\item Workflow. testing e tecnologie di supporto
-\end{enumerate}
-
-%\item Architettura
-%\begin{enumerate}[label*=\arabic*.]
-%	\item Architettura 1 (NodeJs, Redis, Socket.io)
-%	\item Architettura 2 (AWS API Gateway, AWS IoT, AWS Lambda)
-%	\item Architetture a confronto
-%\end{enumerate}
-
-\item Conclusioni e sviluppi futuri
-\end{enumerate}
-%chapter
 \include{cap1-intro}
 \include{cap2}
 \include{cap3}
